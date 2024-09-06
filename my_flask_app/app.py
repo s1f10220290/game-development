@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import subprocess
+import os
 
 app = Flask(__name__)
 
@@ -37,14 +38,16 @@ def home():
 
 @app.route('/start_game', methods=['POST'])
 def start_game_route():
-    # game.pyを実行し、結果を取得
-    output = start_game()
-    return render_template('game.html', output=output)
+    # Pygameを別プロセスで非同期に実行
+    start_game()
+    return render_template('game_running.html')  # ゲームが起動した後に表示するページ
 
 def start_game():
-    # game.pyを実行して、その出力をキャプチャ
-    result = subprocess.check_output(['python', 'game.py'], universal_newlines=True)
-    return result
+    # ゲームを別プロセスで実行
+    if os.name == 'nt':  # Windows環境の場合
+        subprocess.Popen(['python', 'game.py'], creationflags=subprocess.CREATE_NEW_CONSOLE)
+    else:  # Unix系環境の場合 (Linux, macOS)
+        subprocess.Popen(['python3', 'game.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
 if __name__ == '__main__':
     app.run(debug=True)
