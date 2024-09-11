@@ -8,8 +8,8 @@ def main():
     clock = pygame.time.Clock()
     img_bg = pygame.image.load("bg1.jpeg") #背景画像の読み込み
     img_chara = [
-        pygame.image.load("chara1.jpeg"),
-        pygame.image.load("chara2.jpeg")
+        pygame.image.load("chara1.png"),
+        pygame.image.load("chara2.png")
     ]
 
      # 背景画像のサイズをウィンドウサイズに合わせて調整
