@@ -6,7 +6,7 @@ def main():
     pygame.display.set_caption("スパイミッションゲーム")
     screen = pygame.display.set_mode((640, 360))
     clock = pygame.time.Clock()
-    img_bg = pygame.image.load("image/bg1.jpeg") #背景画像の読み込み
+    img_bg = pygame.image.load("bg1.jpeg") #背景画像の読み込み
     img_chara = [
         pygame.image.load("chara1.jpeg"),
     ]
