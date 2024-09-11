@@ -19,7 +19,7 @@ def main():
     img_chara = [
         pygame.transform.scale(img_chara[0], (50, 50)),  # 例えば50x50ピクセルに縮小
         pygame.transform.scale(img_chara[1], (50, 50))   # 例えば50x50ピクセルに縮小
-    ]
+    ]  
 
     tmr = 0
 
