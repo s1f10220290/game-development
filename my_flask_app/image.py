@@ -9,6 +9,7 @@ def main():
     img_bg = pygame.image.load("bg1.jpeg") #背景画像の読み込み
     img_chara = [
         pygame.image.load("chara1.jpeg"),
+        pygame.image.load("chara2.jpeg")
     ]
     tmr = 0
 
@@ -18,7 +19,7 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.event.KEYDOWN:  #キーを押すイベントが発生した時
+            if event.type == pygame.KEYDOWN:  #キーを押すイベントが発生した時
                 if event.key == pygame.K_F1: #F1キーなら
                     screen = pygame.display.set_mode((640,360),pygame.FULLSCREEN) #フルスクリーンにする
                 if event.key == pygame.K_F2 or event.key == pygame.K_ESCAPE:
