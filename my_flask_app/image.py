@@ -11,6 +11,16 @@ def main():
         pygame.image.load("chara1.jpeg"),
         pygame.image.load("chara2.jpeg")
     ]
+
+     # 背景画像のサイズをウィンドウサイズに合わせて調整
+    img_bg = pygame.transform.scale(img_bg, (640, 360)) 
+
+     # キャラクター画像のサイズを調整 (幅, 高さ)
+    img_chara = [
+        pygame.transform.scale(img_chara[0], (50, 50)),  # 例えば50x50ピクセルに縮小
+        pygame.transform.scale(img_chara[1], (50, 50))   # 例えば50x50ピクセルに縮小
+    ]
+
     tmr = 0
 
     while True:
