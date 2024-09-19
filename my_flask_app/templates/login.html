@@ -66,8 +66,8 @@
         }
 
         input {
-            width: 300px; /* 入力欄の幅を広げる */
-            height: 40px; /* 入力欄の高さを大きくする */
+            width: 300px; 
+            height: 40px;
             font-size: 1.2em;
             padding: 5px;
             margin-bottom: 20px;
@@ -123,7 +123,7 @@
     <div class="container">
         <form method="POST" action="{{ url_for('login') }}">
             <label for="username">ユーザー名</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username" required><br><br>
             <label for="password">パスワード</label>
             <input type="password" id="password" name="password" required>
         </form>
