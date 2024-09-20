@@ -121,14 +121,15 @@
 </head>
 <body>
     <div class="container">
-        <form method="POST" action="{{ url_for('login') }}">
+        <form method="POST" action="home.html">
             <label for="username">ユーザー名</label>
             <input type="text" id="username" name="username" required><br><br>
             <label for="password">パスワード</label>
             <input type="password" id="password" name="password" required>
+            <button type="submit">ログイン</button>
         </form>
 
-        <button type="submit">ログイン</button>
+        
     </div>
 </body>
 </html>
