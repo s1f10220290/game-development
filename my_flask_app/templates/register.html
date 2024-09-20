@@ -128,14 +128,13 @@
     
     <div class="container">
         <h2>ユーザー登録</h2>
-        <form method="POST" action="{{ url_for('register') }}">
+        <form method="POST" action="home.html">
             <label for="username">ユーザー名:</label>
             <input type="text" id="username" name="username" required><br><br>
             <label for="password">パスワード:</label>
             <input type="password" id="password" name="password" required>
+            <button type="submit">登録</button><br><br>
         </form>
-
-        <button type="submit">登録</button><br><br>
         <a href="login.html">ログイン画面に戻る</a>
     </div>
 </body>
