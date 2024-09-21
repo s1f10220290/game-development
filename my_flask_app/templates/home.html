@@ -3,92 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>ホーム画面</title>
-    <style>
-        @font-face {
-            font-family: 'misaki_mincho'; 
-            src: url('fonts/misaki_mincho.ttf') format('truetype'); 
-            font-weight: 400;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'misaki_gothic'; 
-            src: url('fonts/misaki_gothic.ttf') format('truetype');
-            font-weight: 400;
-            font-style: normal;
-        }
-        @font-face {
-            font-family: 'misaki_gothic_2nd';
-            src: url('fonts/misaki_gothic_2nd.ttf') format('truetype');
-            font-weight: 400;
-            font-style: normal;
-        }
-
-        body {
-            background-image: url('illustration/home.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 1s ease-in, slideBackground 20s linear infinite;
-
-        }
-
-        h2 {
-            color: white;
-        }
-
-        button {
-            font-family: 'misaki_gothic', sans-serif; 
-            padding: 10px 20px;
-            font-size: 1.8em;
-            background-color: #252825;
-            color: white;
-            border: 2px solid white;
-            box-shadow: 0 0 0 4px black;
-            border-radius: 0;
-            cursor: pointer;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        button:hover {
-            transform: scale(1.1); /* ボタンが少し大きくなる */
-        }
-
-        button:active {
-            transform: scale(0.95); /* クリック時:ボタンが少し縮む */
-        }
-
-        /* フェードイン */
-        @keyframes fadeIn {
-            30% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideBackground {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 100% 0; /* 背景が右に移動 */
-            }
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="../static/styles/style.css">
 </head>
 <body>
     
-    <form action="{{ url_for('start_game_route') }}" method="post">
-        <button type="submit">▶ ゲームをはじめる</button>
-    </form>
+    <div class="container">
+        <h2>ようこそ！</h2>
+
+        <button onclick="window.location.href='{{ url_for('start_game_route') }}'">▶ ゲームをはじめる</button>
+    </div>
+
+
 </body>
 </html>
