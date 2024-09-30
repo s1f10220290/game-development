@@ -1,3 +1,9 @@
+show collections
+use test;
+show collections
+db.users.find();
+db.users.find().pretty();
+use user_database;
 db.users.find().pretty();
 use user_database;
 use user
