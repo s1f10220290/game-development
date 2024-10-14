@@ -1,66 +1,42 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import json
 import os
 import subprocess
 from pymongo import MongoClient
-
+from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # セッション管理のためのシークレットキー
 
-# MongoDBの設定
-MONGO_URI = 'mongodb://localhost:27017/'
-DB_NAME = 'user_database'
-USER_COLLECTION = 'users'
+# MongoDB Atlasの接続URIを設定
+app.config['MONGO_URI'] = 'mongodb+srv://s1f102201762:seomi263@teamproject.bq9kb.mongodb.net/?retryWrites=true&w=majority&appName=teamproject'
 
-# ユーザーデータをMongoDBから読み込む
-def load_users_from_db():
-    client = MongoClient(MONGO_URI)
-    db = client[DB_NAME]
-    users_collection = db[USER_COLLECTION]
-    
-    users = {}
-    for user in users_collection.find():
-        users[user['username']] = user['password']  # パスワードは平文で保存されている前提
-    return users
+# MongoDBクライアントを作成
+client = MongoClient(app.config['MONGO_URI'])
+db = client['user_database']  # 使用するデータベース名
+questions_collection = db['questions']
 
-# ユーザーをMongoDBに保存
-def save_user_to_db(username, password):
-    client = MongoClient(MONGO_URI) # MongoDBに接続
-    db = client[DB_NAME]
-    users_collection = db[USER_COLLECTION]
-    
-    # ユーザー情報追加
-    users_collection.insert_one({'username': username, 'password': password})
-
-
+bcrypt = Bcrypt(app)
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        new_username = request.form['username']
-        new_password = request.form['password']
-        
-        # ユーザー名とパスワードが入力されているか確認
-        if not new_username or not new_password:
-            return render_template('register.html', error="すべてのフィールドを入力してください。")
-        
-        users = load_users_from_db()
+@app.route('/register', methods=['POST'])
+def register_user():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
 
-        # 既に同じユーザー名が存在しないか確認
-        if new_username in users:
-            return render_template('register.html', error="そのユーザー名は既に使用されています。")
-        
-        # 新しいユーザーを登録し、MongoDBに保存
-        save_user_to_db(new_username, new_password)  # MongoDBに保存
-        return redirect(url_for('login'))
+    # パスワードをハッシュ化
+    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+    # ユーザー情報をデータベースに保存
+    result = db.users.insert_one({'username': username, 'password': hashed_password})
     
-    return render_template('register.html')
-
+    if result.inserted_id:
+        return jsonify({"message": "User registered successfully!"}), 201
+    return jsonify({"message": "User registration failed."}), 400
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -68,20 +44,17 @@ def login():
         username = request.form['username']
         password = request.form['password']
         
-        # DBから最新のユーザーデータを読み込む
-        users = load_users_from_db()
+        # データベースからユーザーを取得
+        user = db.users.find_one({'username': username})
         
-        # ログイン処理
-        if username in users and users[username] == password:
+        # ユーザーが存在するか確認
+        if user and bcrypt.check_password_hash(user['password'], password):
             session['username'] = username  # セッションにユーザー名を保存
             return redirect(url_for('home'))
         else:
             return render_template('login.html', error="ログイン失敗。正しいユーザー名とパスワードを入力してください。")
     
     return render_template('login.html')
-
-
-
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
@@ -90,7 +63,6 @@ def home():
         return render_template('home.html', username=username)
     else:
         return redirect(url_for('login'))  # ログインしていない場合はログインページにリダイレクト
-
 
 @app.route('/start_game', methods=['POST'])
 def start_game_route():
