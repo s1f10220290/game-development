@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
-import json
 import os
 import subprocess
 from pymongo import MongoClient
@@ -22,21 +21,28 @@ bcrypt = Bcrypt(app)
 def index():
     return render_template('index.html')
 
-@app.route('/register', methods=['POST'])
-def register_user():
-    data = request.get_json()
-    username = data.get('username')
-    password = data.get('password')
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
 
-    # パスワードをハッシュ化
-    hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        # ユーザー名が既に存在するか確認
+        existing_user = db.users.find_one({'username': username})
+        if existing_user:
+            return jsonify({"message": "ユーザー名はすでに存在します。"}), 400
 
-    # ユーザー情報をデータベースに保存
-    result = db.users.insert_one({'username': username, 'password': hashed_password})
+        # パスワードをハッシュ化
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
+        # ユーザー情報をデータベースに保存
+        result = db.users.insert_one({'username': username, 'password': hashed_password})
+        
+        if result.inserted_id:
+            return redirect(url_for('login'))  # ログインページにリダイレクト
+        return jsonify({"message": "User registration failed."}), 400
     
-    if result.inserted_id:
-        return jsonify({"message": "User registered successfully!"}), 201
-    return jsonify({"message": "User registration failed."}), 400
+    return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
