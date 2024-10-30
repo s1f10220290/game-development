@@ -95,11 +95,11 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route("/stage1")
-def stage1():
+def start():
     return render_template("stage1.html")
 
 @app.route('/stage1/question')
-def stage1_question():
+def stage1():
     # MongoDB からランダムに1つの問題を取得
     random_problem = questions_collection.aggregate([{"$sample": {"size": 1}}])
     
