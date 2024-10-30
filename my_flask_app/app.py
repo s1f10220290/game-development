@@ -3,6 +3,7 @@ import os
 import subprocess
 from pymongo import MongoClient
 from flask_bcrypt import Bcrypt
+import random
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # セッション管理のためのシークレットキー
@@ -95,3 +96,15 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+@app.route('/stage1')
+def stage1():
+    # MongoDB からランダムに1つの問題を取得
+    random_problem = questions_collection.aggregate([{"$sample": {"size": 1}}])
+    
+    # 取得した問題文を変数に格納
+    problem = next(random_problem, None)  # None をデフォルトに設定して安全に取得
+    question_text = problem["question"] if problem else "問題が見つかりませんでした。"
+    
+    # テンプレートに問題文を渡す
+    return render_template('stage1.html', question_text=question_text)
