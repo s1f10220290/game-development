@@ -108,7 +108,7 @@ def stage1():
     question_text = problem["question"] if problem else "問題が見つかりませんでした。"
     
     # テンプレートに問題文を渡す
-    return render_template('stage1.html', question_text=question_text)
+    return jsonify({"question_text": question_text})
 
 if __name__ == '__main__':
     app.run(debug=True)
