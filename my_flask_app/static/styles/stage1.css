@@ -1,3 +1,6 @@
 body {
     font-family: sans-serif;
+    background-image: url("../illustration/pc-room.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
