@@ -94,11 +94,12 @@ def logout():
     session.pop('username', None)  # セッションからユーザー名を削除
     return redirect(url_for('login'))
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
-@app.route('/stage1')
+@app.route("/stage1")
 def stage1():
+    return render_template("stage1.html")
+
+@app.route('/stage1/question')
+def stage1_question():
     # MongoDB からランダムに1つの問題を取得
     random_problem = questions_collection.aggregate([{"$sample": {"size": 1}}])
     
@@ -108,3 +109,6 @@ def stage1():
     
     # テンプレートに問題文を渡す
     return render_template('stage1.html', question_text=question_text)
+
+if __name__ == '__main__':
+    app.run(debug=True)
