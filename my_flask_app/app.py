@@ -105,7 +105,21 @@ def stage1():
     
     # 取得した問題文を変数に格納
     problem = next(random_problem, None)  # None をデフォルトに設定して安全に取得
-    question_text = problem["question"] if problem else "問題が見つかりませんでした。"
+    if problem:
+        # 各質問を取得し、存在する場合のみ表示
+        question_text = ""
+        if 'question1' in problem:
+            question_text += problem['question1'] + "<br>"
+        if 'question2' in problem:
+            question_text += problem['question2'] + "<br>"
+        if 'question3' in problem:
+            question_text += problem['question3'] + "<br>"
+        
+        # すべての質問が存在しない場合のメッセージを設定
+        if not question_text:
+            question_text = "問題が見つかりませんでした。"
+    else:
+        question_text = "問題が見つかりませんでした。"
     
     # テンプレートに問題文を渡す
     return jsonify({"question_text": question_text})

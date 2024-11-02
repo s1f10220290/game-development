@@ -17,7 +17,7 @@
                 try {
                     const response = await fetch('/stage1/question');
                     const data = await response.json();
-                    document.getElementById('question-container').innerText = data.question_text;
+                    document.getElementById('question-container').innerHTML = data.question_text;
                 } catch (error) {
                     console.error("Error fetching question:", error);
                     document.getElementById('question-container').innerText = "問題の取得に失敗しました。";
