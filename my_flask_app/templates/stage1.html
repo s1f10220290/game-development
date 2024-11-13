@@ -1,28 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="UTf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="../static/styles/stage1.css">
-        <title>Stage1</title>
-    </head>
-    <body>
-        <h1>Stage1</h1>
-        <button onclick="fetchQuestion()">ミッションスタート</button>
-
-        <div id="question-container"></div>
-
-        <script>
-            async function fetchQuestion() {
-                try {
-                    const response = await fetch('/stage1/question');
-                    const data = await response.json();
-                    document.getElementById('question-container').innerHTML = data.question_text;
-                } catch (error) {
-                    console.error("Error fetching question:", error);
-                    document.getElementById('question-container').innerText = "問題の取得に失敗しました。";
-                }
-            }
-        </script>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles/stage1.css">
+    <title>Stage1</title>
+</head>
+<body>
+    <h1>Stage1</h1>
+    <div id="question-container">
+        {{ question_text | safe }}
+    </div>
+</body>
 </html>

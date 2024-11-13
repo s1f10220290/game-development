@@ -94,35 +94,26 @@ def logout():
     session.pop('username', None)  # セッションからユーザー名を削除
     return redirect(url_for('login'))
 
-@app.route("/stage1")
-def start():
-    return render_template("stage1.html")
-
-@app.route('/stage1/question')
-def stage1():
+@app.route('/stage1')
+def start_stage1():
     # MongoDB からランダムに1つの問題を取得
     random_problem = questions_collection.aggregate([{"$sample": {"size": 1}}])
-    
-    # 取得した問題文を変数に格納
-    problem = next(random_problem, None)  # None をデフォルトに設定して安全に取得
+    problem = next(random_problem, None)
+
+    question_text = ""
     if problem:
-        # 各質問を取得し、存在する場合のみ表示
-        question_text = ""
         if 'question1' in problem:
             question_text += problem['question1'] + "<br>"
         if 'question2' in problem:
             question_text += problem['question2'] + "<br>"
         if 'question3' in problem:
             question_text += problem['question3'] + "<br>"
-        
-        # すべての質問が存在しない場合のメッセージを設定
-        if not question_text:
-            question_text = "問題が見つかりませんでした。"
-    else:
-        question_text = "問題が見つかりませんでした。"
     
-    # テンプレートに問題文を渡す
-    return  question_text
+    if not question_text:
+        question_text = "問題が見つかりませんでした。"
+
+    # 取得した質問を stage1.html に渡す
+    return render_template("stage1.html", question_text=question_text)
 
 if __name__ == '__main__':
     app.run(debug=True)
