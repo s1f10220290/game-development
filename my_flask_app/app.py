@@ -108,6 +108,10 @@ def start_stage1():
             question_text += problem['question2'] + "<br>"
         if 'question3' in problem:
             question_text += problem['question3'] + "<br>"
+        if 'question4' in problem:
+            question_text += problem['question4'] + "<br>"
+        if 'question5' in problem:
+            question_text += problem['question5'] + "<br>"
     
     if not question_text:
         question_text = "問題が見つかりませんでした。"
