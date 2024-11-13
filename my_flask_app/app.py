@@ -122,7 +122,7 @@ def stage1():
         question_text = "問題が見つかりませんでした。"
     
     # テンプレートに問題文を渡す
-    return jsonify({"question_text": question_text})
+    return  question_text
 
 if __name__ == '__main__':
     app.run(debug=True)
