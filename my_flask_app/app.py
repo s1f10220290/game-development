@@ -4,6 +4,7 @@ import subprocess
 from pymongo import MongoClient
 from flask_bcrypt import Bcrypt
 import random
+import json
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # セッション管理のためのシークレットキー
@@ -101,6 +102,9 @@ def start_stage1():
     problem = next(random_problem, None)
 
     question_text = ""
+    options = []
+    correct_answer_index = 0
+
     if problem:
         if 'question1' in problem:
             question_text += problem['question1'] + "<br>"
@@ -112,12 +116,36 @@ def start_stage1():
             question_text += problem['question4'] + "<br>"
         if 'question5' in problem:
             question_text += problem['question5'] + "<br>"
+
+        if 'options' in problem:
+            try:
+                options = json.loads(problem['options'])
+            except json.JSONDecodeError:
+                print("optionsのデコードに失敗しました。データの形式を確認してください")
+
+        if 'correct_answer' in problem:
+            correct_answer_index = int(problem['correct_answer'])
     
     if not question_text:
         question_text = "問題が見つかりませんでした。"
 
     # 取得した質問を stage1.html に渡す
-    return render_template("stage1.html", question_text=question_text)
+    return render_template("stage1.html", question_text=question_text, options=options, correct_answer_index=correct_answer_index)
+
+@app.route('/submit', methods=['POST'])
+def submit_answer():
+    selected_index = request.form.get('selected_index')
+    correct_answer_index = int(request.form.get('correct_answer_index'))
+
+    if selected_index is not None:
+        if int(selected_index) == correct_answer_index:
+            feedback = "正解"
+        else:
+            feedback = "不正解"
+    else:
+        feedback = "回答が選択されていません"
+
+    return render_template("feedback.html", feedback=feedback)
 
 if __name__ == '__main__':
     app.run(debug=True)

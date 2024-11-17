@@ -5,11 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../static/styles/stage1.css">
     <title>Stage1</title>
+    <script>
+        function submitOnSelection() {
+            document.getElementById("answerForm").submit();
+        }
+    </script>
 </head>
 <body>
     <h1>Stage1</h1>
     <div id="question-container">
         {{ question_text | safe }}
     </div>
+    <form id="answerForm" method="POST" action="{{ url_for('submit_answer') }}">
+        {% for option in options %}
+        <div>
+            <input type="radio" name="selected_index" value="{{ loop.index0 }}" id="option{{ loop.index }}" onchange="submitOnSelection()">
+            <label for="option{{ loop.index }}">{{ option['answer'] }}</label>
+        </div>
+        {% endfor %}
+        <input type="hidden" name="correct_answer_index" value="{{ correct_answer_index }}">
+    </form>
 </body>
 </html>
