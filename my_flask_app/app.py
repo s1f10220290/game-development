@@ -98,7 +98,10 @@ def logout():
 @app.route('/stage1')
 def start_stage1():
     # MongoDB からランダムに1つの問題を取得
-    random_problem = questions_collection.aggregate([{"$sample": {"size": 1}}])
+    random_problem = questions_collection.aggregate([
+        {"$match": {"id": {"$gte": 1, "$lte": 40}}},
+        {"$sample": {"size": 1}}
+    ])
     problem = next(random_problem, None)
 
     question_text = ""
