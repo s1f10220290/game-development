@@ -4,3 +4,28 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+/* 見出し（タイトル）のスタイル */
+h1 {
+    text-align: center;
+    margin-top: 50px; /* 上部の余白 */
+}
+
+/* 問題文のコンテナ */
+#question-container {
+    background-color: rgba(211, 211, 211, 0.7); 
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%; /* 横幅80% */
+    margin: 30px auto; /* 上部に30pxの余白、左右中央に配置 */
+    text-align: center; /* テキスト中央揃え */
+    font-size: 1.2em; /* フォントサイズ調整 */
+    box-sizing: border-box; /* パディングを含むサイズ計算 */
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 768px) {
+    #question-container {
+        width: 90%; /* 小さい画面用に幅を90%に */
+    }
+}
