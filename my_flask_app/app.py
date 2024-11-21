@@ -143,31 +143,6 @@ def start_stage1():
     # 取得した質問を stage1.html に渡す
     return render_template("stage1.html", question_text=question_text, options=options, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
 
-@app.route('/submit', methods=['POST'])
-def submit_answer():
-    selected_index = request.form.get('selected_index')
-    correct_answer_index = int(request.form.get('correct_answer_index'))
-
-    # セッションから進行状況を取得
-    current_question = session.get('current_question', 1)
-    correct_answers = session.get('correct_answers', 0)
-
-    feedback = ""
-    if selected_index is not None:
-        if int(selected_index) == correct_answer_index:
-            feedback = "正解"
-            correct_answers += 1
-        else:
-            feedback = "不正解"
-    else:
-        feedback = "回答が選択されていません"
-    
-    current_question += 1
-    session['current_question'] = current_question
-    session['correct_answers'] = correct_answers
-
-    return render_template("feedback.html", feedback=feedback)
-
 @app.route('/selection')
 def selection():
     return render_template('selection.html')

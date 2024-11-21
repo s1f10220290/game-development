@@ -9,8 +9,24 @@
     <body>
         <h1>結果発表</h1>
         <div id="question-container">
-            <p>あなたのスコア： {{ correct_answers }} / {{ total_questions }}</p>
+            <p>あなたのスコア： <span id="score"></span></p>
             <a href="{{ url_for('start_stage1') }}">再挑戦</a>
         </div>
+
+        <script>
+            window.onload = function() {
+                const correctAnswers = sessionStorage.getItem('correct_answers');
+                const totalQuestions = 10;
+
+                if (correctAnswers != null) {
+                    document.getElementById('score').textContent = correctAnswers + " / " + totalQuestions;
+                } else {
+                    document.getElementById('score').textContent = "0 / "+ totalQuestions;
+                }
+
+                sessionStorage.removeItem('current_question');
+                sessionStorage.removeItem('correct_answers');
+            }
+        </script>
     </body>
 </html>
