@@ -6,8 +6,8 @@
 
 /* 既存のスタイル */
 @font-face {
-    font-family: 'misaki_gothic';
-    src: url('../templates/fonts/misaki_gothic.ttf') format('truetype');
+    font-family: 'PixelMplus12-Regular';
+    src: url('../fonts/PixelMplus12-Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
 }
@@ -16,7 +16,7 @@ body {
     background-image: url("../illustration/school.png");
     background-size: cover;
     background-repeat: no-repeat;
-    font-family: "misaki_gothic", sans-serif;
+    font-family: "PixelMplus12-Regular", sans-serif;
 }
 
 #spy {

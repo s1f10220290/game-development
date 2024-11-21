@@ -1,16 +1,69 @@
 <!DOCTYPE html>
 <html lang="ja">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="../static/styles/game_style.css">
-        <title>Game Running</title>
-    </head>
-    <body>
-        <a href="/stage1"><button>Stage1</button></a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles/game_running.css">
+    <title>Game Running</title>
+</head>
+<body>
+
     <div id="animation-container">
         <img id="spy" src="{{ url_for('static', filename='illustration/spy.png') }}" alt="スパイ">
     </div>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-    </body>
+
+    
+    <!-- プロローグ用のテキスト表示 -->
+    <div id="prologue-container">
+        <p id="prologue-text"></p>
+    </div>
+
+
+    <script>
+        const prologueText = [
+            "主人公は、ふだんはふつうの学生。",
+            "でも実は、すごいプログラミングのうでをもつスパイです！",
+            "ある日、学校にかくれていた悪いそしきがいろんな教室を乗っ取り",
+            "「サイバーこうげき」を計画していることがわかりました。",
+            "「このままでは、学校が大変なことになる！」",
+            "いろんな教室を探検しながら、悪いそしきの計画を止めよう！"
+        ];
+        
+        const prologueElement = document.getElementById('prologue-text');
+        const animationContainer = document.getElementById('animation-container');
+        const typingSpeed = 130;
+
+        let textIndex = 0;
+        let charIndex = 0;
+        
+
+        // 文字を1文字ずつ表示する関数
+        function typePrologue() {
+            if (charIndex < prologueText[textIndex].length) {
+                prologueElement.innerHTML += prologueText[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(typePrologue, typingSpeed);
+            } else if (textIndex < prologueText.length - 1) {
+                // 次の行に進む
+                charIndex = 0;
+                textIndex++;
+                prologueElement.innerHTML += "<br>"; // 改行
+                setTimeout(typePrologue, typingSpeed);
+            } 
+        }
+
+        // ページ読み込み時にプロローグ開始
+        window.onload = typePrologue;
+
+        setTimeout(() => {
+            const buttonContainer = document.createElement('div');
+            buttonContainer.innerHTML = '<a href="/selection"><button>ステージを選ぶ</button></a>';
+            const prologueContainer = document.getElementById('prologue-container');
+            prologueContainer.appendChild(buttonContainer);
+        }, 22000); // 23秒後
+
+
+    </script>
+</body>
 </html>
