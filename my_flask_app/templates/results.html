@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../static/styles/stage1.css">
+        <title>結果発表</title>
+    </head>
+    <body>
+        <h1>結果発表</h1>
+        <div id="question-container">
+            <p>あなたのスコア： {{ correct_answers }} / {{ total_questions }}</p>
+            <a href="{{ url_for('start_stage1') }}">再挑戦</a>
+        </div>
+    </body>
+</html>

@@ -29,3 +29,33 @@ h1 {
         width: 90%; /* 小さい画面用に幅を90%に */
     }
 }
+
+.option-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.option-box {
+    width: 45%;
+    height: 50px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/*マウスオーバー時の色変更*/
+.option-box:hover {
+    background-color: #ddd;
+}
+
+/*ラジオボタンを非表示にする*/
+input[type="radio"] {
+    display: none;
+}
