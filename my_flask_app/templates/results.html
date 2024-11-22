@@ -10,7 +10,7 @@
         <h1>結果発表</h1>
         <div id="question-container">
             <p>あなたのスコア： <span id="score"></span></p>
-            <a href="{{ url_for('start_stage1') }}">再挑戦</a>
+            <a href="{{ url_for('start_stage1') }}">もう1回やる</a>
         </div>
 
         <script>
@@ -18,7 +18,7 @@
                 const correctAnswers = sessionStorage.getItem('correct_answers');
                 const totalQuestions = 10;
 
-                if (correctAnswers != null) {
+                if (correctAnswers) {
                     document.getElementById('score').textContent = correctAnswers + " / " + totalQuestions;
                 } else {
                     document.getElementById('score').textContent = "0 / "+ totalQuestions;
