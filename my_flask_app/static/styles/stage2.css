@@ -1,0 +1,129 @@
+@font-face{
+    font-family: 'PixelMplus12-Regular'; 
+    src: url('../fonts/PixelMplus12-Regular.ttf') format('truetype'); 
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PixelMplus12-Bold'; 
+    src: url('../fonts/PixelMplus12-Bold.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    font-family: 'PixelMplus12-Regular', sans-serif;
+    background-image: url("../illustration/stage2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* 見出し（タイトル）のスタイル */
+h1 {
+    text-align: center;
+    margin-top: 50px; /* 上部の余白 */
+}
+
+/* 問題文のコンテナ */
+#question-container {
+    background-color: rgba(211, 211, 211, 0.7); 
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%; /* 横幅80% */
+    height: 500px; /* 縦方向の高さを指定 */
+    margin: 30px auto; /* 上部に30pxの余白、左右中央に配置 */
+    text-align: center; /* テキスト中央揃え */
+    box-sizing: border-box; /* パディングを含むサイズ計算 */
+    display: flex; /* フレックスボックスの有効化 */
+    flex-direction: column; /* 子要素を縦方向に配置 */
+    justify-content: space-between; /* 子要素を上下にスペースを確保 */
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 768px) {
+    #question-container {
+        width: 90%; /* 小さい画面用に幅を90%に */
+    }
+}
+
+.option-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.option-box {
+    width: 45%;
+    height: 100px;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+/*マウスオーバー時の色変更*/
+.option-box:hover {
+    background-color: #ddd;
+}
+
+.option-box.is-correct{
+    border-color: green;
+    background-color: #e0ffe0;
+    position: relative;
+}
+
+.option-box.is-correct::after {
+    content: "〇";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    color: green;
+}
+
+.option-box.is-incorrect {
+    border-color: red;
+    background-color: #ffe0e0;
+    position: relative;
+}
+
+.option-box.is-incorrect::after {
+    content: "×";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    color: red;
+}
+
+.option-box.disabled {
+    pointer-events: none;
+}
+
+/*ラジオボタンを非表示にする*/
+input[type="radio"] {
+    display: none;
+}
+
+button {
+    font-family: 'PixelMplus12-Regular', sans-serif;
+    padding: 10px 20px;
+    background-color: #252825;
+    color: white;
+    border: 2px solid white;
+    box-shadow: 0 0 0 4px black;
+    border-radius: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    
+}
