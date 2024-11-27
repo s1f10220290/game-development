@@ -127,3 +127,9 @@ button {
     transition: transform 0.3s ease, background-color 0.3s ease;
     
 }
+
+.horizontal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}

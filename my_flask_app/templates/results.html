@@ -11,10 +11,10 @@
         <div id="question-container">
             <p>あなたのスコア： <span id="score"></span></p>
             <p id="result-message"></p>
-            <div id="next-stage-container" style="display: none">
-                <a href="{{ url_for('start_stage2') }}" id="next-stage-button">次のステージへ進む</a>
+            <div id="button-container">
+                <button id="next-stage-button" style="display: none;" onclick="location.href='{{ url_for('start_stage2') }}'">次のステージへ進む</button>
+                <button id="retry-button" onclick="location.href='{{ url_for('start_stage1') }}'">もう１回やる</button>
             </div>
-            <a href="{{ url_for('start_stage1') }}">もう1回やる</a>
         </div>
 
         <script>
@@ -25,11 +25,15 @@
                 document.getElementById('score').textContent = correctAnswers+ "/" + totalQuestions;
 
                 const resultMessage = document.getElementById('result-message');
+                const buttonContainer = document.getElementById('button-container');
+                const nextStageButton = document.getElementById('next-stage-button');
+
                 if (correctAnswers >= 8) {
                     resultMessage.textContent = "クリア！";
                     resultMessage.style.color = "green";
 
-                    document.getElementById('next-stage-container').style.display = "block";
+                    buttonContainer.classList.add('horizontal-buttons');
+                    nextStageButton.style.display = "inline-block";
                 } else {
                     resultMessage.textContent = "もう１度挑戦してみよう！";
                     resultMessage.style.color = "red";
