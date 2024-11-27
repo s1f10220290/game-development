@@ -100,20 +100,29 @@ def start_stage1():
     # セッションから進行状況を取得
     current_question = session.get('current_question', 1)
     correct_answers = session.get('correct_answers', 0)
+    answered_questions = session.get('answered_questions', [])
 
     # 10問終了した場合
     if current_question > 10:
+        session.pop('answered_questions', None)
         return redirect(url_for('show_results'))
 
     # MongoDB からランダムに1つの問題を取得
     random_problem = questions_collection.aggregate([
         {"$match": {"id": {"$gte": 1, "$lte": 40}}},
+        {"$match": {"id": {"$nin": answered_questions}}},
         {"$sample": {"size": 1}}
     ])
     problem = next(random_problem, None)
 
+    if not problem:
+        # 問題が見つからない場合
+        session.pop('answered_questions', None)
+        return redirect(url_for('start_stage1'))
+
     question_text = ""
     options = []
+    feedback = []
     correct_answer_index = 0
 
     if problem:
@@ -131,17 +140,19 @@ def start_stage1():
         if 'options' in problem:
             try:
                 options = json.loads(problem['options'])
+                feedback = [option['feedback'] for option in options if 'feedback' in option]
             except json.JSONDecodeError:
                 print("optionsのデコードに失敗しました。データの形式を確認してください")
 
         if 'correct_answer' in problem:
             correct_answer_index = int(problem['correct_answer'])
-    
-    if not question_text:
-        question_text = "問題が見つかりませんでした。"
+        
+        # 出題済みの問題IDをセッションに追加
+        answered_questions.append(problem['id'])
+        session['answered_questions'] = answered_questions
 
     # 取得した質問を stage1.html に渡す
-    return render_template("stage1.html", question_text=question_text, options=options, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
+    return render_template("stage1.html", question_text=question_text, options=options, feedback=feedback, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
 
 @app.route('/stage2')
 def start_stage2():
