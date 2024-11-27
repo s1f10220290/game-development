@@ -31,6 +31,7 @@ h1 {
     padding: 20px;
     border-radius: 10px;
     width: 80%; /* 横幅80% */
+    height: 500px; /* 縦方向の高さを指定 */
     margin: 30px auto; /* 上部に30pxの余白、左右中央に配置 */
     text-align: center; /* テキスト中央揃え */
     font-size: 1.2em; /* フォントサイズ調整 */
