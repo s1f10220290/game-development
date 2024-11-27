@@ -1,5 +1,19 @@
+@font-face{
+    font-family: 'PixelMplus12-Regular'; 
+    src: url('../fonts/PixelMplus12-Regular.ttf') format('truetype'); 
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PixelMplus12-Bold'; 
+    src: url('../fonts/PixelMplus12-Bold.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
 body {
-    font-family: sans-serif;
+    font-family: 'PixelMplus12-Regular', sans-serif;
     background-image: url("../illustration/pc-room.jpg");
     background-repeat: no-repeat;
     background-size: cover;
@@ -98,6 +112,15 @@ input[type="radio"] {
     display: none;
 }
 
-.next-btn {
-    align-items:end;
+button {
+    font-family: 'PixelMplus12-Regular', sans-serif;
+    padding: 10px 20px;
+    background-color: #252825;
+    color: white;
+    border: 2px solid white;
+    box-shadow: 0 0 0 4px black;
+    border-radius: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    
 }
