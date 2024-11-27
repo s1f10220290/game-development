@@ -143,6 +143,55 @@ def start_stage1():
     # 取得した質問を stage1.html に渡す
     return render_template("stage1.html", question_text=question_text, options=options, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
 
+@app.route('/stage2')
+def start_stage2():
+    # セッションから進行状況を取得
+    current_question = session.get('current_question', 1)
+    correct_answers = session.get('correct_answers', 0)
+
+    # 10問終了した場合
+    if current_question > 10:
+        return redirect(url_for('show_results'))
+
+    # MongoDB からランダムに1つの問題を取得
+    random_problem = questions_collection.aggregate([
+        {"$match": {"id": {"$gte": 41, "$lte": 80}}},
+        {"$sample": {"size": 1}}
+    ])
+    problem = next(random_problem, None)
+
+    question_text = ""
+    options = []
+    correct_answer_index = 0
+
+    if problem:
+        if 'question1' in problem:
+            question_text += problem['question1'] + "<br>"
+        if 'question2' in problem:
+            question_text += problem['question2'] + "<br>"
+        if 'question3' in problem:
+            question_text += problem['question3'] + "<br>"
+        if 'question4' in problem:
+            question_text += problem['question4'] + "<br>"
+        if 'question5' in problem:
+            question_text += problem['question5'] + "<br>"
+
+        if 'options' in problem:
+            try:
+                options = json.loads(problem['options'])
+            except json.JSONDecodeError:
+                print("optionsのデコードに失敗しました。データの形式を確認してください")
+
+        if 'correct_answer' in problem:
+            correct_answer_index = int(problem['correct_answer'])
+    
+    if not question_text:
+        question_text = "問題が見つかりませんでした。"
+
+    # 取得した質問を stage2.html に渡す
+    return render_template("stage2.html", question_text=question_text, options=options, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
+
+
 @app.route('/selection')
 def selection():
     return render_template('selection.html')
