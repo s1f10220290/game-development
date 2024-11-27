@@ -10,6 +10,7 @@
         <h1>結果発表</h1>
         <div id="question-container">
             <p>あなたのスコア： <span id="score"></span></p>
+            <p id="result-message"></p>
             <a href="{{ url_for('start_stage1') }}">もう1回やる</a>
         </div>
 
@@ -18,10 +19,15 @@
                 const correctAnswers = sessionStorage.getItem('correct_answers');
                 const totalQuestions = 10;
 
-                if (correctAnswers) {
-                    document.getElementById('score').textContent = correctAnswers + " / " + totalQuestions;
+                document.getElementById('score').textContent = correctAnswers+ "/" + totalQuestions;
+
+                const resultMessage = document.getElementById('result-message');
+                if (correctAnswers >= 8) {
+                    resultMessage.textContent = "クリア！";
+                    result.Message.style.color = "green";
                 } else {
-                    document.getElementById('score').textContent = "0 / "+ totalQuestions;
+                    resultMessage.textContent = "もう１度挑戦してみよう！";
+                    resultMessage.style.color = "red";
                 }
 
                 sessionStorage.removeItem('current_question');
