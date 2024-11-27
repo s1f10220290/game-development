@@ -145,3 +145,33 @@ button:active {
     width: 110px;
     align-self: flex-end;
 }
+
+#stage-button {
+    position: absolute; /* ボタンを絶対位置に */
+    top: 50%; /* 画面中央に配置 */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px; /* フォントサイズを大きく */
+    padding: 20px 40px; /* ボタンの内側余白 */
+    background-color: #007bff; /* ボタンの背景色 */
+    color: white; /* テキストカラー */
+    border: none; /* ボーダーを削除 */
+    border-radius: 10px; /* 角丸 */
+    cursor: pointer; /* マウスホバー時にポインター表示 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* シャドウ効果 */
+    display: none; /* 初期は非表示 */
+    z-index: 10; /* 他の要素の上に表示 */
+}
+
+#animation-container {
+    position: relative; /* アニメーションの親要素 */
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* アニメーションの範囲外を隠す */
+    z-index: 1; /* ボタンより下に配置 */
+}
+
+#spy {
+    position: absolute; /* スパイの絶対位置 */
+    z-index: 5; /* ボタンより下に表示 */
+}

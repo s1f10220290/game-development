@@ -5,12 +5,36 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="../static/styles/game_style.css">
         <title>Game Running</title>
+        <style>
+                        /* ボタンを内包するリンクのスタイル */
+            a {
+                display: none;
+                position: absolute; /* 画面中央に配置するために絶対位置を指定 */
+                top: 50%; /* 縦位置を中央に */
+                left: 50%; /* 横位置を中央に */
+                transform: translate(-50%, -50%); /* 中央揃え */
+                display: none; /* 初期状態で非表示 */
+                z-index: 10; /* 他の要素の上に表示 */
+            }
+
+            #stage-button {
+                font-size: 24px; /* フォントサイズを大きく */
+                padding: 20px 40px; /* ボタンの内側余白 */
+                background-color: #007bff; /* ボタンの背景色 */
+                color: white; /* テキストカラー */
+                border: none; /* ボーダーを削除 */
+                border-radius: 10px; /* 角丸 */
+                cursor: pointer; /* マウスホバー時にポインター表示 */
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* シャドウ効果 */
+                text-align: center;
+            }
+        </style>
     </head>
     <body>
-        <a href="/stage1"><button>Stage1</button></a>
-    <div id="animation-container">
-        <img id="spy" src="{{ url_for('static', filename='illustration/spy.png') }}" alt="スパイ">
-    </div>
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+        <a href="/stage1" id="stage-button">Stage1</a>
+        <div id="animation-container">
+            <img id="spy" src="{{ url_for('static', filename='illustration/spy.png') }}" alt="スパイ">
+        </div>
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
     </body>
 </html>
