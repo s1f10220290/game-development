@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles/stage2.css">
+    <title>Stage2</title>
+</head>
+<body>
+    <h1>Stage2</h1>
+    <div id="question-container">
+        <p>問題：<span id="current-question">{{ current_question }}</span> / 10</p>
+        {{ question_text | safe }}
+    
+
+        <div class="option-container">
+            {% for option in options %}
+            <div class="option-box" data-value="{{ loop.index0 }}" onclick="selectOption(this)">
+                <label for="option{{ loop.index }}">{{ option['answer'] }}</label>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div id="feedback" class="feedback"></div>
+
+        <button id="next-btn" onclick="nextQuestion()" style="display:none;">次の問題へ</button>
+    </div>
+
+    <script>
+        let correctAnswerIndex = {{ correct_answer_index }};
+        let currentQuestion = {{ current_question }};
+        let correctAnswers = {{ correct_answers }};
+        let selectedAnswer = null;
+
+        function updateQuestionDisplay() {
+            document.getElementById('current-question').textContent = currentQuestion;
+        }
+
+        // 選択肢をクリックしたときの処理
+        function selectOption(element) {
+            // 他の選択肢の選択状態をリセット
+            const options = document.querySelectorAll('.option-box');
+            options.forEach(option => {
+            option.onclick = null;
+            option.classList.add('disabled');
+            });
+
+            // クリックされた選択肢を選択状態にする
+            const selectedIndex = parseInt(element.getAttribute("data-value"));
+            const feedbackElements = document.querySelectorAll('.feedback-text');
+            selectedAnswer = selectedIndex;
+
+            // 正誤判定
+            if (selectedIndex === correctAnswerIndex) {
+                element.classList.add('is-correct');
+            } else {
+                element.classList.add('is-incorrect');
+                // 正解の選択肢に is-correct を付与
+                options[correctAnswerIndex].classList.add('is-correct');
+            }
+
+            // 次の問題へ進むボタンを表示
+            document.getElementById('next-btn').style.display = 'inline-block';
+        }
+
+        // 正解かどうかを判定し、進行状況を更新
+        function updateProgress() {
+            if (selectedAnswer !== null && parseInt(selectedAnswer) === correctAnswerIndex) {
+                correctAnswers++;
+            }
+
+            currentQuestion++;
+            sessionStorage.setItem('current_question', currentQuestion);
+            sessionStorage.setItem('correct_answers', correctAnswers);
+        }
+
+        function nextQuestion() {
+            updateProgress();
+
+            if (currentQuestion > 10) {
+                sessionStorage.setItem('current_question', 1);
+                sessionStorage.setItem('correct_answers', correctAnswers);
+                window.location.href = "/results";
+            } else {
+                window.location.href = "/stage2";
+            }
+        }
+
+        window.onload = function() {
+            const currentQ = sessionStorage.getItem('current_question');
+            const correctAns = sessionStorage.getItem('correct_answers');
+
+            if (currentQ && correctAns) {
+                currentQuestion = parseInt(currentQ);
+                correctAnswers = parseInt(correctAns);
+            } else {
+                currentQuestion = 1;
+                correctAnswers = 0;
+            }
+
+            updateQuestionDisplay();
+
+        }
+    </script>
+</body>
+</html>
