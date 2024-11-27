@@ -34,8 +34,10 @@ h1 {
     height: 500px; /* 縦方向の高さを指定 */
     margin: 30px auto; /* 上部に30pxの余白、左右中央に配置 */
     text-align: center; /* テキスト中央揃え */
-    font-size: 1.2em; /* フォントサイズ調整 */
     box-sizing: border-box; /* パディングを含むサイズ計算 */
+    display: flex; /* フレックスボックスの有効化 */
+    flex-direction: column; /* 子要素を縦方向に配置 */
+    justify-content: space-between; /* 子要素を上下にスペースを確保 */
 }
 
 /* レスポンシブ対応 */
@@ -54,7 +56,7 @@ h1 {
 
 .option-box {
     width: 45%;
-    height: 50px;
+    height: 100px;
     margin: 10px 0;
     display: flex;
     justify-content: center;
