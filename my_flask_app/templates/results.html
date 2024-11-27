@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../static/styles/stage1.css">
+        <title>結果発表</title>
+    </head>
+    <body>
+        <h1>結果発表</h1>
+        <div id="question-container">
+            <p>あなたのスコア： <span id="score"></span></p>
+            <p id="result-message"></p>
+            <a href="{{ url_for('start_stage1') }}">もう1回やる</a>
+        </div>
+
+        <script>
+            window.onload = function() {
+                const correctAnswers = sessionStorage.getItem('correct_answers');
+                const totalQuestions = 10;
+
+                document.getElementById('score').textContent = correctAnswers+ "/" + totalQuestions;
+
+                const resultMessage = document.getElementById('result-message');
+                if (correctAnswers >= 8) {
+                    resultMessage.textContent = "クリア！";
+                    result.Message.style.color = "green";
+                } else {
+                    resultMessage.textContent = "もう１度挑戦してみよう！";
+                    resultMessage.style.color = "red";
+                }
+
+                sessionStorage.removeItem('current_question');
+                sessionStorage.removeItem('correct_answers');
+            }
+        </script>
+    </body>
+</html>

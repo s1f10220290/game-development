@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../static/styles/stage1.css">
-    <title>Stage1</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles/stage2.css">
+    <title>Stage2</title>
 </head>
 <body>
-    <h1>Stage1</h1>
+    <h1>Stage2</h1>
     <div id="question-container">
         <p>問題：<span id="current-question">{{ current_question }}</span> / 10</p>
         {{ question_text | safe }}
@@ -82,7 +82,7 @@
                 sessionStorage.setItem('correct_answers', correctAnswers);
                 window.location.href = "/results";
             } else {
-                window.location.href = "/stage1";
+                window.location.href = "/stage2";
             }
         }
 
