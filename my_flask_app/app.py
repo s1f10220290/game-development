@@ -175,6 +175,8 @@ def start_stage2():
             question_text += problem['question4'] + "<br>"
         if 'question5' in problem:
             question_text += problem['question5'] + "<br>"
+        if 'question6' in problem:
+            question_text += problem['question6'] + "<br>"
 
         if 'options' in problem:
             try:
