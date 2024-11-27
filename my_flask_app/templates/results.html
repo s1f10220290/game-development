@@ -11,12 +11,15 @@
         <div id="question-container">
             <p>あなたのスコア： <span id="score"></span></p>
             <p id="result-message"></p>
+            <div id="next-stage-container" style="display: none">
+                <a href="{{ url_for('start_stage2') }}" id="next-stage-button">次のステージへ進む</a>
+            </div>
             <a href="{{ url_for('start_stage1') }}">もう1回やる</a>
         </div>
 
         <script>
             window.onload = function() {
-                const correctAnswers = sessionStorage.getItem('correct_answers');
+                const correctAnswers = parseInt(sessionStorage.getItem('correct_answers')) || 0;
                 const totalQuestions = 10;
 
                 document.getElementById('score').textContent = correctAnswers+ "/" + totalQuestions;
@@ -25,11 +28,14 @@
                 if (correctAnswers >= 8) {
                     resultMessage.textContent = "クリア！";
                     resultMessage.style.color = "green";
+
+                    document.getElementById('next-stage-container').style.display = "block";
                 } else {
                     resultMessage.textContent = "もう１度挑戦してみよう！";
                     resultMessage.style.color = "red";
                 }
 
+                // セッションストレージをリセット
                 sessionStorage.removeItem('current_question');
                 sessionStorage.removeItem('correct_answers');
             }
