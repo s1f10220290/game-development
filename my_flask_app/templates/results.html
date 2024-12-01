@@ -3,12 +3,12 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="../static/styles/stage1.css">
+        <link rel="stylesheet" type="text/css" href="../static/styles/results.css">
         <title>結果発表</title>
     </head>
     <body>
-        <h1>結果発表</h1>
         <div id="question-container">
+            <h1>結果発表</h1>
             <p>あなたのスコア： <span id="score"></span></p>
             <p id="result-message"></p>
             <div id="button-container">
@@ -30,7 +30,7 @@
 
                 if (correctAnswers >= 8) {
                     resultMessage.textContent = "クリア！";
-                    resultMessage.style.color = "green";
+                    resultMessage.style.color = "orange";
 
                     buttonContainer.classList.add('horizontal-buttons');
                     nextStageButton.style.display = "inline-block";

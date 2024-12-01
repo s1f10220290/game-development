@@ -1,0 +1,79 @@
+@font-face{
+    font-family: 'PixelMplus12-Regular'; 
+    src: url('../fonts/PixelMplus12-Regular.ttf') format('truetype'); 
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'PixelMplus12-Bold'; 
+    src: url('../fonts/PixelMplus12-Bold.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    font-family: 'PixelMplus12-Regular', sans-serif;
+    background-image: url("../illustration/results.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+}
+
+/* 見出し（タイトル）のスタイル */
+h1 {
+    text-align: center;
+    margin-top: 50px;
+    color: #ddd;
+}
+
+/* 問題文のコンテナ */
+#question-container { 
+    padding: 50px;
+    width: 80%;
+    margin: 50px auto;
+    margin-top: 100px;
+    text-align: center;
+    border-radius: 10px;
+    color: #ddd;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 768px) {
+    #question-container {
+        width: 90%; /* 小さい画面用に幅を90%に */
+    }
+}
+
+p{
+    color: #ddd;
+    font-size: 30px;
+}
+
+
+button {
+    font-family: 'PixelMplus12-Regular', sans-serif;
+    padding: 10px 20px;
+    background-color: #252825;
+    color: white;
+    border: 2px solid white;
+    box-shadow: 0 0 0 4px black;
+    border-radius: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    margin: 10px;
+}
+
+.horizontal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#question-container p {
+    margin: 50px 0;
+}
+
+#button-container {
+    margin-top: 30px;
+}
