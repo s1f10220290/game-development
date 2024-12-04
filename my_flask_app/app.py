@@ -166,7 +166,7 @@ def start_stage2():
 
     # MongoDB からランダムに1つの問題を取得
     random_problem = questions_collection.aggregate([
-        {"$match": {"id": {"$gte": 41, "$lte": 80}}},
+        {"$match": {"id": {"$gte": 41, "$lte": 100}}},
         {"$sample": {"size": 1}}
     ])
     problem = next(random_problem, None)
