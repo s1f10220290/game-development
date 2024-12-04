@@ -25,6 +25,29 @@ h1 {
     margin-top: 50px; /* 上部の余白 */
 }
 
+/* ホームにもどるボタンを右上に配置 */
+#home-button {
+    position: absolute; /* 絶対位置を設定 */
+    top: 10px; /* 上から10px */
+    right: 10px; /* 右から10px */
+    font-family: 'PixelMplus12-Regular', sans-serif;
+    padding: 10px 20px;
+    background-color: #252825;
+    color: white;
+    border: 2px solid white;
+    box-shadow: 0 0 0 4px black;
+    border-radius: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* ホバー時の効果 */
+#home-button:hover {
+    background-color: #333;
+    transform: scale(1.05);
+}
+
+
 /* 問題文のコンテナ */
 #question-container {
     background-color: rgba(211, 211, 211, 0.7); 
