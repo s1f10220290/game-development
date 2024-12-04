@@ -47,6 +47,11 @@ h1 {
     transform: scale(1.05);
 }
 
+#next-btn:hover {
+    background-color: #333;
+    transform: scale(1.05);
+}
+
 
 /* 問題文のコンテナ */
 #question-container {
