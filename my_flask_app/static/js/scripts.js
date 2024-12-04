@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let xPercent = 0; // 横方向の開始位置を左端に（0%）
     let yPercent = -28; // 縦方向の開始位置を中央に（50%）
     let directionX = 1; // 横方向の移動 (1: 右, -1: 左)
-    let directionY = -1; // 縦方向の移動 (1: 上, -1: 下)
-    const stepPercent = 0.2; // 移動速度（%）
+    let directionY = 1; // 縦方向の移動 (1: 上, -1: 下)
+    const stepPercent = 0.5; // 移動速度（%）
     let mode = 'horizontal'; // 'horizontal' or 'vertical'
     let totalTraveledDistance = 0; // 累計移動距離（%）
     const totalDistanceLimit = 80; // 消えるまでの総移動距離（%）

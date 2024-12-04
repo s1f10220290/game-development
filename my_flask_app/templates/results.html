@@ -13,7 +13,8 @@
             <p id="result-message"></p>
             <div id="button-container">
                 <button id="next-stage-button" style="display: none;" onclick="location.href='{{ url_for('start_stage2') }}'">次のステージへ進む</button>
-                <button id="retry-button" onclick="location.href='{{ url_for('start_stage1') }}'">もう１回やる</button>
+                <button id="retry-button" style="display: none;" onclick="location.href='{{ url_for('start_stage1') }}'">もう１回やる</button>
+                <button id="stage-selection" onclick="location.href='{{ url_for('selection') }}'">ステージ選択へもどる</button>
             </div>
         </div>
 
@@ -27,6 +28,7 @@
                 const resultMessage = document.getElementById('result-message');
                 const buttonContainer = document.getElementById('button-container');
                 const nextStageButton = document.getElementById('next-stage-button');
+                const retryButton = document.getElementById('retry-button');
 
                 if (correctAnswers >= 8) {
                     resultMessage.textContent = "クリア！";
@@ -37,6 +39,8 @@
                 } else {
                     resultMessage.textContent = "もう１度挑戦してみよう！";
                     resultMessage.style.color = "red";
+
+                    retryButton.style.display = "inline-block";
                 }
 
                 // セッションストレージをリセット
