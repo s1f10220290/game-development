@@ -3,15 +3,24 @@ document.addEventListener('DOMContentLoaded', function () {
     const stageButton = document.getElementById('stage-button');
     const container = document.getElementById('animation-container');
 
-    // 左端からスタートするための初期位置（%）
-    let xPercent = 0; // 横方向の開始位置を左端に（0%）
-    let yPercent = -28; // 縦方向の開始位置を中央に（50%）
+    // PNG内の座標（例えば、画像の幅が100pxで高さが100pxのときに(10, 20)から始める）
+    const startXPixel = 0; // PNG内での開始X座標（ピクセル）
+    const startYPixel = -23; // PNG内での開始Y座標（ピクセル）
+
+    // 画像サイズ（仮想的な値として設定）
+    const imageWidth = 100; // 画像全体の幅（ピクセル）
+    const imageHeight = 100; // 画像全体の高さ（ピクセル）
+
+    // 画像内の座標をコンテナの相対位置（%）に変換
+    let xPercent = (startXPixel / imageWidth) * 100;
+    let yPercent = (startYPixel / imageHeight) * 100;
+
     let directionX = 1; // 横方向の移動 (1: 右, -1: 左)
-    let directionY = 1; // 縦方向の移動 (1: 上, -1: 下)
-    const stepPercent = 0.5; // 移動速度（%）
+    let directionY = -1; // 縦方向の移動 (1: 上, -1: 下)
+    const stepPercent = 0.2; // 移動速度（%）
     let mode = 'horizontal'; // 'horizontal' or 'vertical'
     let totalTraveledDistance = 0; // 累計移動距離（%）
-    const totalDistanceLimit = 80; // 消えるまでの総移動距離（%）
+    const totalDistanceLimit = 90; // 消えるまでの総移動距離（%）
     const switchDistance = 43; // モードを変更する距離の閾値（%）
     let modeDistance = 0; // 現在のモードでの移動距離
     let isReversing = false; // 反転処理中のフラグ
