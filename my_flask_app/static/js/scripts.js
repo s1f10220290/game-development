@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let yPercent = -24; // 縦方向の位置（%）
     let directionX = 1; // 横方向の移動 (1: 右, -1: 左)
     let directionY = 1; // 縦方向の移動 (1: 上, -1: 下)
-    const stepPercent = 0.5; // 移動速度（%）
+    const stepPercent = 0.2; // 移動速度（%）
     let mode = 'horizontal'; // 'horizontal' or 'vertical'
     let totalTraveledDistance = 0; // 累計移動距離（%）
     const totalDistanceLimit = 70; // 消えるまでの総移動距離（%）
