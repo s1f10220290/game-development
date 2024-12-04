@@ -209,6 +209,10 @@ def start_stage2():
 def selection():
     return render_template('selection.html')
 
+@app.route('/stage1story')
+def stage1story():
+    return render_template('stage1story.html')
+
 @app.route('/results')
 def show_results():
     correct_answers = session.get('correct_answers', 0)
