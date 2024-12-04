@@ -1,7 +1,11 @@
 #animation-container {
     position: relative;
-    width: 100%;
-    height: 600px; /* 必要に応じて高さを変更 */
+    width: 80vw; /* ビューポート幅の 80% */
+    height: 50vh; /* ビューポート高さの 50% */
+    margin: auto; /* 中央に配置 */
+    overflow: hidden; /* 要素がコンテナ外に出ないようにする */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* 視覚確認用 */
+}
 }
 
 /* 既存のスタイル */
@@ -13,10 +17,26 @@
 }
 
 body {
-    background-image: url("../illustration/school.png");
+    background-image: url('../illustration/home.png');
     background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     background-repeat: no-repeat;
-    font-family: "PixelMplus12-Regular", sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#animation-container {
+    position: relative;
+    width: 80vw;
+    height: 50vh;
+    margin: auto;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 #spy {
