@@ -56,8 +56,15 @@
                 element.classList.add('is-correct');
             } else {
                 element.classList.add('is-incorrect');
+                const feedbackText = optionsData[selectedIndex].feedback;
+                const feedbackElement = document.createElement('p')
+                feedbackElement.textContent = feedbackText;
+                feedbackElement.classList.add('feedback-text');
+                feedbackElement.style.marginTop = "5px";
+                element.appendChild(feedbackElement);
+
                 // 正解の選択肢に is-correct を付与
-                options[correctAnswerIndex].classList.add('is-correct');
+                options[correctAnswerIndex].classList.add('is-correct')
             }
 
             // 次の問題へ進むボタンを表示
@@ -101,7 +108,9 @@
 
             updateQuestionDisplay();
 
-        }
+            optionsData = {{ options | tojson }};
+
+        };
     </script>
 </body>
 </html>
