@@ -247,5 +247,245 @@ def show_stage2_results():
 
     return render_template("stage2_results.html", correct_answers=correct_answers, total_questions=total_questions)
 
+@app.route('/stage3')
+def start_stage3():
+    # セッションから進行状況を取得
+    current_question = session.get('current_question', 1)
+    correct_answers = session.get('correct_answers', 0)
+    answered_questions = session.get('answered_questions', [])
+
+    # 10問終了した場合
+    if current_question > 10:
+        session.pop('answered_questions', None)
+        return redirect(url_for('show_stage2_results'))
+
+    # MongoDB からランダムに1つの問題を取得
+    random_problem = questions_collection.aggregate([
+        {"$match": {"id": {"$gte": 41, "$lte": 100}}},
+        {"$match": {"id": {"$nin": answered_questions}}},
+        {"$sample": {"size": 1}}
+    ])
+    problem = next(random_problem, None)
+
+    if not problem:
+        # 問題が見つからない場合
+        session.pop("answered_questions", None)
+        return redirect(url_for('start_stage3'))
+
+    question_text = ""
+    options = []
+    feedback = []
+    correct_answer_index = 0
+
+    if problem:
+        if 'question1' in problem:
+            question_text += problem['question1'] + "<br>"
+        if 'question2' in problem:
+            question_text += problem['question2'] + "<br>"
+        if 'question3' in problem:
+            question_text += problem['question3'] + "<br>"
+        if 'question4' in problem:
+            question_text += problem['question4'] + "<br>"
+        if 'question5' in problem:
+            question_text += problem['question5'] + "<br>"
+        if 'question6' in problem:
+            question_text += problem['question6'] + "<br>"
+
+        if 'options' in problem:
+            try:
+                options = json.loads(problem['options'])
+                feedback = [option['feedback'] for option in options if 'feedback' in option]
+            except json.JSONDecodeError:
+                print("optionsのデコードに失敗しました。データの形式を確認してください")
+
+        if 'correct_answer' in problem:
+            correct_answer_index = int(problem['correct_answer'])
+    
+        answered_questions.append(problem['id'])
+        session['answered_questions'] = answered_questions
+
+    # 取得した質問を stage2.html に渡す
+    return render_template("stage3.html", question_text=question_text, options=options, feedback=feedback, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
+
+@app.route('/stage4')
+def start_stage4():
+    # セッションから進行状況を取得
+    current_question = session.get('current_question', 1)
+    correct_answers = session.get('correct_answers', 0)
+    answered_questions = session.get('answered_questions', [])
+
+    # 10問終了した場合
+    if current_question > 10:
+        session.pop('answered_questions', None)
+        return redirect(url_for('show_stage2_results'))
+
+    # MongoDB からランダムに1つの問題を取得
+    random_problem = questions_collection.aggregate([
+        {"$match": {"id": {"$gte": 41, "$lte": 100}}},
+        {"$match": {"id": {"$nin": answered_questions}}},
+        {"$sample": {"size": 1}}
+    ])
+    problem = next(random_problem, None)
+
+    if not problem:
+        # 問題が見つからない場合
+        session.pop("answered_questions", None)
+        return redirect(url_for('start_stage4'))
+
+    question_text = ""
+    options = []
+    feedback = []
+    correct_answer_index = 0
+
+    if problem:
+        if 'question1' in problem:
+            question_text += problem['question1'] + "<br>"
+        if 'question2' in problem:
+            question_text += problem['question2'] + "<br>"
+        if 'question3' in problem:
+            question_text += problem['question3'] + "<br>"
+        if 'question4' in problem:
+            question_text += problem['question4'] + "<br>"
+        if 'question5' in problem:
+            question_text += problem['question5'] + "<br>"
+        if 'question6' in problem:
+            question_text += problem['question6'] + "<br>"
+
+        if 'options' in problem:
+            try:
+                options = json.loads(problem['options'])
+                feedback = [option['feedback'] for option in options if 'feedback' in option]
+            except json.JSONDecodeError:
+                print("optionsのデコードに失敗しました。データの形式を確認してください")
+
+        if 'correct_answer' in problem:
+            correct_answer_index = int(problem['correct_answer'])
+    
+        answered_questions.append(problem['id'])
+        session['answered_questions'] = answered_questions
+
+    # 取得した質問を stage2.html に渡す
+    return render_template("stage4.html", question_text=question_text, options=options, feedback=feedback, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
+
+@app.route('/stage5')
+def start_stage5():
+    # セッションから進行状況を取得
+    current_question = session.get('current_question', 1)
+    correct_answers = session.get('correct_answers', 0)
+    answered_questions = session.get('answered_questions', [])
+
+    # 10問終了した場合
+    if current_question > 10:
+        session.pop('answered_questions', None)
+        return redirect(url_for('show_stage2_results'))
+
+    # MongoDB からランダムに1つの問題を取得
+    random_problem = questions_collection.aggregate([
+        {"$match": {"id": {"$gte": 41, "$lte": 100}}},
+        {"$match": {"id": {"$nin": answered_questions}}},
+        {"$sample": {"size": 1}}
+    ])
+    problem = next(random_problem, None)
+
+    if not problem:
+        # 問題が見つからない場合
+        session.pop("answered_questions", None)
+        return redirect(url_for('start_stage5'))
+
+    question_text = ""
+    options = []
+    feedback = []
+    correct_answer_index = 0
+
+    if problem:
+        if 'question1' in problem:
+            question_text += problem['question1'] + "<br>"
+        if 'question2' in problem:
+            question_text += problem['question2'] + "<br>"
+        if 'question3' in problem:
+            question_text += problem['question3'] + "<br>"
+        if 'question4' in problem:
+            question_text += problem['question4'] + "<br>"
+        if 'question5' in problem:
+            question_text += problem['question5'] + "<br>"
+        if 'question6' in problem:
+            question_text += problem['question6'] + "<br>"
+
+        if 'options' in problem:
+            try:
+                options = json.loads(problem['options'])
+                feedback = [option['feedback'] for option in options if 'feedback' in option]
+            except json.JSONDecodeError:
+                print("optionsのデコードに失敗しました。データの形式を確認してください")
+
+        if 'correct_answer' in problem:
+            correct_answer_index = int(problem['correct_answer'])
+    
+        answered_questions.append(problem['id'])
+        session['answered_questions'] = answered_questions
+
+    # 取得した質問を stage2.html に渡す
+    return render_template("stage5.html", question_text=question_text, options=options, feedback=feedback, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
+
+@app.route('/stage6')
+def start_stage6():
+    # セッションから進行状況を取得
+    current_question = session.get('current_question', 1)
+    correct_answers = session.get('correct_answers', 0)
+    answered_questions = session.get('answered_questions', [])
+
+    # 10問終了した場合
+    if current_question > 10:
+        session.pop('answered_questions', None)
+        return redirect(url_for('show_stage2_results'))
+
+    # MongoDB からランダムに1つの問題を取得
+    random_problem = questions_collection.aggregate([
+        {"$match": {"id": {"$gte": 41, "$lte": 100}}},
+        {"$match": {"id": {"$nin": answered_questions}}},
+        {"$sample": {"size": 1}}
+    ])
+    problem = next(random_problem, None)
+
+    if not problem:
+        # 問題が見つからない場合
+        session.pop("answered_questions", None)
+        return redirect(url_for('start_stage6'))
+
+    question_text = ""
+    options = []
+    feedback = []
+    correct_answer_index = 0
+
+    if problem:
+        if 'question1' in problem:
+            question_text += problem['question1'] + "<br>"
+        if 'question2' in problem:
+            question_text += problem['question2'] + "<br>"
+        if 'question3' in problem:
+            question_text += problem['question3'] + "<br>"
+        if 'question4' in problem:
+            question_text += problem['question4'] + "<br>"
+        if 'question5' in problem:
+            question_text += problem['question5'] + "<br>"
+        if 'question6' in problem:
+            question_text += problem['question6'] + "<br>"
+
+        if 'options' in problem:
+            try:
+                options = json.loads(problem['options'])
+                feedback = [option['feedback'] for option in options if 'feedback' in option]
+            except json.JSONDecodeError:
+                print("optionsのデコードに失敗しました。データの形式を確認してください")
+
+        if 'correct_answer' in problem:
+            correct_answer_index = int(problem['correct_answer'])
+    
+        answered_questions.append(problem['id'])
+        session['answered_questions'] = answered_questions
+
+    # 取得した質問を stage2.html に渡す
+    return render_template("stage6.html", question_text=question_text, options=options, feedback=feedback, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
+
 if __name__ == '__main__':
     app.run(debug=True)
