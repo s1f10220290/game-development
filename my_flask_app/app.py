@@ -164,7 +164,7 @@ def start_stage2():
     # 10問終了した場合
     if current_question > 10:
         session.pop('answered_questions', None)
-        return redirect(url_for('show_results'))
+        return redirect(url_for('show_stage2_results'))
 
     # MongoDB からランダムに1つの問題を取得
     random_problem = questions_collection.aggregate([
@@ -236,6 +236,16 @@ def show_results():
     session.pop('correct_answers', None)
 
     return render_template("results.html", correct_answers=correct_answers, total_questions=total_questions)   
+
+@app.route("/stage2_results")
+def show_stage2_results():
+    correct_answers = session.get('correct_answers', 0)
+    total_questions = 10
+
+    session.pop('current_question', None)
+    session.pop('correct_answers', None)
+
+    return render_template("stage2_results.html", correct_answers=correct_answers, total_questions=total_questions)
 
 if __name__ == '__main__':
     app.run(debug=True)
