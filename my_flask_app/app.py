@@ -257,7 +257,7 @@ def start_stage3():
     # 10問終了した場合
     if current_question > 10:
         session.pop('answered_questions', None)
-        return redirect(url_for('show_stage2_results'))
+        return redirect(url_for('show_stage3_results'))
 
     # MongoDB からランダムに1つの問題を取得
     random_problem = questions_collection.aggregate([
@@ -307,6 +307,17 @@ def start_stage3():
     # 取得した質問を stage2.html に渡す
     return render_template("stage3.html", question_text=question_text, options=options, feedback=feedback, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
 
+@app.route("/stage3_results")
+def show_stage3_results():
+    correct_answers = session.get('correct_answers', 0)
+    total_questions = 10
+
+    session.pop('current_question', None)
+    session.pop('correct_answers', None)
+
+    return render_template("stage3_results.html", correct_answers=correct_answers, total_questions=total_questions)
+
+
 @app.route('/stage4')
 def start_stage4():
     # セッションから進行状況を取得
@@ -317,7 +328,7 @@ def start_stage4():
     # 10問終了した場合
     if current_question > 10:
         session.pop('answered_questions', None)
-        return redirect(url_for('show_stage2_results'))
+        return redirect(url_for('show_stage4_results'))
 
     # MongoDB からランダムに1つの問題を取得
     random_problem = questions_collection.aggregate([
@@ -367,6 +378,16 @@ def start_stage4():
     # 取得した質問を stage2.html に渡す
     return render_template("stage4.html", question_text=question_text, options=options, feedback=feedback, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
 
+@app.route("/stage4_results")
+def show_stage4_results():
+    correct_answers = session.get('correct_answers', 0)
+    total_questions = 10
+
+    session.pop('current_question', None)
+    session.pop('correct_answers', None)
+
+    return render_template("stage4_results.html", correct_answers=correct_answers, total_questions=total_questions)
+
 @app.route('/stage5')
 def start_stage5():
     # セッションから進行状況を取得
@@ -377,7 +398,7 @@ def start_stage5():
     # 10問終了した場合
     if current_question > 10:
         session.pop('answered_questions', None)
-        return redirect(url_for('show_stage2_results'))
+        return redirect(url_for('show_stage5_results'))
 
     # MongoDB からランダムに1つの問題を取得
     random_problem = questions_collection.aggregate([
@@ -427,6 +448,16 @@ def start_stage5():
     # 取得した質問を stage2.html に渡す
     return render_template("stage5.html", question_text=question_text, options=options, feedback=feedback, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
 
+@app.route("/stage5_results")
+def show_stage5_results():
+    correct_answers = session.get('correct_answers', 0)
+    total_questions = 10
+
+    session.pop('current_question', None)
+    session.pop('correct_answers', None)
+
+    return render_template("stage5_results.html", correct_answers=correct_answers, total_questions=total_questions)
+
 @app.route('/stage6')
 def start_stage6():
     # セッションから進行状況を取得
@@ -437,7 +468,7 @@ def start_stage6():
     # 10問終了した場合
     if current_question > 10:
         session.pop('answered_questions', None)
-        return redirect(url_for('show_stage2_results'))
+        return redirect(url_for('show_stage6_results'))
 
     # MongoDB からランダムに1つの問題を取得
     random_problem = questions_collection.aggregate([
@@ -486,6 +517,17 @@ def start_stage6():
 
     # 取得した質問を stage2.html に渡す
     return render_template("stage6.html", question_text=question_text, options=options, feedback=feedback, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
+
+@app.route("/stage6_results")
+def show_stage6_results():
+    correct_answers = session.get('correct_answers', 0)
+    total_questions = 10
+
+    session.pop('current_question', None)
+    session.pop('correct_answers', None)
+
+    return render_template("stage6_results.html", correct_answers=correct_answers, total_questions=total_questions)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
