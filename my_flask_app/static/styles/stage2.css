@@ -52,7 +52,6 @@ h1 {
     transform: scale(1.05);
 }
 
-
 /* 問題文のコンテナ */
 #question-container {
     background-color: rgba(211, 211, 211, 0.7); 
@@ -83,6 +82,7 @@ h1 {
 }
 
 .option-box {
+    position: relative;
     width: 45%;
     height: 100px;
     margin: 10px 0;
@@ -93,8 +93,7 @@ h1 {
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
-    position: relative;
-    padding-bottom: 20px;
+    flex-direction: column;
 }
 
 /*マウスオーバー時の色変更*/
@@ -154,4 +153,20 @@ button {
     cursor: pointer;
     transition: transform 0.3s ease, background-color 0.3s ease;
     
+}
+
+.horizontal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.feedback-text {
+    margin-top: 20px;
+    font-size: 0.9em;
+    text-align: center;
+    justify-content: flex-end;
+    position: relative;
+    display: flex;
+    top: 25%;
 }
