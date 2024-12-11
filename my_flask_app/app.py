@@ -317,6 +317,9 @@ def show_stage3_results():
 
     return render_template("stage3_results.html", correct_answers=correct_answers, total_questions=total_questions)
 
+@app.route('/stage3story')
+def stage3story():
+    return render_template('stage3story.html')
 
 @app.route('/stage4')
 def start_stage4():
@@ -377,6 +380,11 @@ def start_stage4():
 
     # 取得した質問を stage2.html に渡す
     return render_template("stage4.html", question_text=question_text, options=options, feedback=feedback, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
+
+@app.route('/stage4story')
+def stage4story():
+    return render_template('stage4story.html')
+
 
 @app.route("/stage4_results")
 def show_stage4_results():
@@ -447,6 +455,10 @@ def start_stage5():
 
     # 取得した質問を stage2.html に渡す
     return render_template("stage5.html", question_text=question_text, options=options, feedback=feedback, correct_answer_index=correct_answer_index, current_question=current_question, correct_answers=correct_answers)
+
+@app.route('/stage5story')
+def stage5story():
+    return render_template('stage5story.html')
 
 @app.route("/stage5_results")
 def show_stage5_results():
@@ -528,6 +540,9 @@ def show_stage6_results():
 
     return render_template("stage6_results.html", correct_answers=correct_answers, total_questions=total_questions)
 
+@app.route('/stage6story')
+def stage6story():
+    return render_template('stage6story.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

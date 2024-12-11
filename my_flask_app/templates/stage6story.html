@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="../static/styles/stage6story.css">
+    <title>stage2story</title>
+</head>
+
+<body>
+    <div id="prologue-container">
+        <p id="prologue-text"></p>
+    </div>
+
+    <script>
+        const prologueText = [
+            "放送室に潜入！",
+            "敵が重要なメッセージを暗号化して放送している。",
+            "ミッションを開始しよう！",
+        ];
+        
+        const prologueElement = document.getElementById('prologue-text');
+        const animationContainer = document.getElementById('animation-container');
+        const typingSpeed = 40;
+
+        let textIndex = 0;
+        let charIndex = 0;
+        
+
+        // 文字を1文字ずつ表示する関数
+        function typePrologue() {
+            if (charIndex < prologueText[textIndex].length) {
+                prologueElement.innerHTML += prologueText[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(typePrologue, typingSpeed);
+            } else if (textIndex < prologueText.length - 1) {
+                // 次の行に進む
+                charIndex = 0;
+                textIndex++;
+                prologueElement.innerHTML += "<br>"; // 改行
+                setTimeout(typePrologue, typingSpeed);
+            } else {
+                // 最後の行が終了した後、自動遷移を開始
+                setTimeout(() => {
+                    window.location.href = "/stage6"; // 遷移先のURL
+                }, 2000); 
+            }
+        }
+
+        // ページ読み込み時にプロローグ開始
+        window.onload = typePrologue;
+
+
+
+    </script>
+
+</body>
+</html>
