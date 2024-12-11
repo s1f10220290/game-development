@@ -70,4 +70,59 @@ button:active {
     transform: scale(0.95);
 }
 
+#animation-container.stage1 {
+    width: 100%;
+    height: 520px; /* コンテナの高さを大きく設定(ここでキャラの位置を調整) */
+    overflow: hidden;
+    position: relative;
+}
+
+#spy_kounai {
+    position: absolute;
+    width: 200px; /* 画像の幅を大きく調整 */
+    height: auto; /* アスペクト比を保つ */
+    bottom: 0; /* 位置を下げる */
+    animation: walk-jump 5s linear infinite;
+}
+
+
+@keyframes walk-jump {
+    /* ジャンプ (1回目) */
+    0% {
+        right: 0;
+        bottom: 0;
+    }
+    5% {
+        bottom: 100px; /* ジャンプの頂点 */
+    }
+    10% {
+        bottom: 0; /* 地面に戻る */
+    }
+
+    /* ジャンプ (2回目) */
+    15% {
+        bottom: 100px; /* ジャンプの頂点 */
+    }
+    20% {
+        bottom: 0; /* 地面に戻る */
+    }
+
+    /* ジャンプ (3回目) */
+    25% {
+        bottom: 100px; /* ジャンプの頂点 */
+    }
+    30% {
+        bottom: 0; /* 地面に戻る */
+    }
+
+    /* 横移動 */
+    40% {
+        right: 0;
+        bottom: 0;
+    }
+    100% {
+        right: 50%; /* 左端に移動 */
+        bottom: 0;
+    }
+}
 
