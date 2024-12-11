@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="../static/styles/results.css">
+        <title>結果発表</title>
+    </head>
+    <body>
+        <div id="question-container">
+            <h1>結果発表</h1>
+            <p>あなたのスコア： <span id="score"></span></p>
+            <p id="result-message"></p>
+            <div id="button-container">
+                <button id="next-stage-button" style="display: none;" onclick="location.href='{{ url_for('stage2story') }}'">次のステージへ進む</button>
+                <button id="retry-button" style="display: none;" onclick="location.href='{{ url_for('start_stage3') }}'">もう１回やる</button>
+                <button id="stage-selection" onclick="location.href='{{ url_for('selection') }}'">ステージ選択へもどる</button>
+            </div>
+        </div>
+
+        <script>
+            window.onload = function() {
+                const correctAnswers = parseInt(sessionStorage.getItem('correct_answers')) || 0;
+                const totalQuestions = 10;
+
+                document.getElementById('score').textContent = correctAnswers+ "/" + totalQuestions;
+
+                const resultMessage = document.getElementById('result-message');
+                const buttonContainer = document.getElementById('button-container');
+                const nextStageButton = document.getElementById('next-stage-button');
+                const retryButton = document.getElementById('retry-button');
+
+                if (correctAnswers >= 8) {
+                    resultMessage.textContent = "クリア！";
+                    resultMessage.style.color = "orange";
+
+                    buttonContainer.classList.add('horizontal-buttons');
+                    nextStageButton.style.display = "inline-block";
+                } else {
+                    resultMessage.textContent = "ミッション失敗！正体がバレてしまった！";
+                    resultMessage.style.color = "red";
+
+                    retryButton.style.display = "inline-block";
+                }
+
+                // セッションストレージをリセット
+                sessionStorage.removeItem('current_question');
+                sessionStorage.removeItem('correct_answers');
+            }
+        </script>
+    </body>
+</html>
