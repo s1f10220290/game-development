@@ -28,22 +28,23 @@ body {
 }
 
 #prologue-container {
-    position: absolute;
-    bottom: 50px;
-    left: 20px;
-    transform: none;
-    text-align: left; 
+    position: fixed; /* 固定表示 */
+    top: 50%; /* 上から50%の位置 */
+    left: 50%; /* 左から50%の位置 */
+    transform: translate(-50%, -50%); /* 完全に中央に寄せる */
+    text-align: center; 
     background-color: rgba(0, 0, 0, 0.8);
-    padding: 15px; 
+    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     color: white;
     font-size: 1.2em;
     line-height: 1.5em;
-    width: 70%;
-    max-width: 600px; 
+    width: 90%;
+    max-width: 600px;
     outline: 2px solid #d3d3d3;
     outline-offset: -5px;
+    animation: fade-in 1s ease-out;
 }
 
 
@@ -82,9 +83,9 @@ button:active {
     width: 200px; /* 画像の幅を大きく調整 */
     height: auto; /* アスペクト比を保つ */
     bottom: 0; /* 位置を下げる */
-    animation: walk-jump 5s linear infinite;
+    animation: walk-jump 5s ease-in-out 1; /* アニメーションを1回だけ実行 */
+    animation-fill-mode: forwards; /* アニメーション終了後の状態を維持 */
 }
-
 
 @keyframes walk-jump {
     /* ジャンプ (1回目) */
@@ -121,7 +122,7 @@ button:active {
         bottom: 0;
     }
     100% {
-        right: 50%; /* 左端に移動 */
+        right: 50%; /* 中央付近に移動 */
         bottom: 0;
     }
 }
