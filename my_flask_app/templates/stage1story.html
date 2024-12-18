@@ -30,11 +30,22 @@
 
         let textIndex = 0;
         let charIndex = 0;
+        let isPlayingSound = false;
         
 
         // 効果音の準備
         const typingSound = new Audio("{{ url_for('static', filename='audio/story.mp3') }}");
         typingSound.volume = 0.5;
+
+        function playTypingSound() {
+            if(!isPlayingSound) {
+                isPlayingSound = true;
+                typingSound.play();
+                typingSound.onended = () => {
+                    isPlayingSound = false;
+                };
+            }
+        }
 
         // 文字を1文字ずつ表示する関数
         function typePrologue() {
@@ -42,8 +53,7 @@
                 prologueElement.innerHTML += prologueText[textIndex].charAt(charIndex);
                 charIndex++;
 
-                typingSound.currentTime = 0;
-                typingSound.play();
+                playTypingSound();
 
                 setTimeout(typePrologue, typingSpeed);
             } else if (textIndex < prologueText.length - 1) {
