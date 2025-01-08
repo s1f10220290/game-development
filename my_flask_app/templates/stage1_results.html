@@ -18,6 +18,8 @@
             </div>
         </div>
 
+        <audio id="buttonSound" src="../static/audio/click-sound.mp3"></audio>
+
         <script>
             window.onload = function() {
                 const correctAnswers = parseInt(sessionStorage.getItem('correct_answers')) || 0;
@@ -46,6 +48,17 @@
                 // セッションストレージをリセット
                 sessionStorage.removeItem('current_question');
                 sessionStorage.removeItem('correct_answers');
+
+                // ボタンクリック音を設定
+                const buttonSound = document.getElementById('buttonSound');
+                const buttons = document.querySelectorAll('button');
+
+                buttons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        buttonSound.currentTime =0;
+                        buttonSound.play().catch(err => console.error('音声再生エラー:', err));
+                    });
+                });
             }
         </script>
     </body>

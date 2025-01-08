@@ -7,14 +7,27 @@
 </head>
 
 <body>
+    <audio id="buttonSound" src="../static/audio/click-sound.mp3"></audio>
     
+    <a href="/stage1story"><button class="stage-button">Stage1</button></a>
+    <a href="/stage2story"><button class="stage-button">Stage2</button></a>
+    <a href="/stage3story"><button class="stage-button">Stage3</button></a>
+    <a href="/stage4story"><button class="stage-button">Stage4</button></a>
+    <a href="/stage5story"><button class="stage-button">Stage5</button></a>
+    <a href="/stage6story"><button class="stage-button">Stage6</button></a>
     
-    <a href="/stage1story"><button>Stage1</button></a>
-    <a href="/stage2story"><button>Stage2</button></a>
-    <a href="/stage3story"><button>Stage3</button></a>
-    <a href="/stage4story"><button>Stage4</button></a>
-    <a href="/stage5story"><button>Stage5</button></a>
-    <a href="/stage6story"><button>Stage6</button></a>
-    
+    <script>
+        // 音声再生処理
+        const buttonSound = document.getElementById('buttonSound');
+        const buttons = document.querySelectorAll('.stage-button');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                buttonSound.currentTime = 0; // 再生位置をリセット
+                buttonSound.play();
+            });
+        });
+    </script>
+
 </body>
 </html>
