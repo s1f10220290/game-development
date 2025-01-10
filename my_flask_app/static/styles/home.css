@@ -13,10 +13,10 @@
 
 
 body {
-    background-image: url('../illustration/home.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-image: url('../illustration/start.jpg');
+    background-size: contain; 
+    background-repeat: repeat-x; 
+    background-position: 0 300%;
     font-family: 'PixelMplus12-Regular', Arial, sans-serif;
     text-align: center;
     margin: 0;
@@ -26,6 +26,16 @@ body {
     justify-content: center;
     align-items: center;
     animation: fadeIn 1s ease-in, slideBackground 20s linear infinite;
+}
+
+/* 背景をスライドさせるアニメーション */
+@keyframes slideBackground {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -800% 0; /* 左方向にスライド */
+    }
 }
 
 .container {
@@ -98,24 +108,6 @@ button:active {
     transform: scale(0.95);
 }
 
-/* フェードイン */
-@keyframes fadeIn {
-    30% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}
-
-@keyframes slideBackground {
-    0% {
-        background-position: 0 0;
-    }
-    100% {
-        background-position: 100% 0;
-    }
-}
 
 .username {
     font-size: 2em; 
