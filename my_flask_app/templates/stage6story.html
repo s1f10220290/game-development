@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="../static/styles/style.css">
-    <title>stage2story</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles/stage6story.css">
+    <title>epilogue</title>
 </head>
 
 <body>
@@ -40,10 +40,7 @@
                 prologueElement.innerHTML += "<br>"; // 改行
                 setTimeout(typePrologue, typingSpeed);
             } else {
-                // 最後の行が終了した後、自動遷移を開始
-                setTimeout(() => {
-                    window.location.href = "/stage6"; // 遷移先のURL
-                }, 2000); 
+                console.log("エピローグが終了しました。")
             }
         }
 
