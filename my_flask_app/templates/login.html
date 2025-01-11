@@ -40,7 +40,7 @@
                 <input type="password" id="password" name="password" required>
                 <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">パスワードを表示</button>
             </div>
-            <button type="submit">ログイン</button>
+            <button type="submit" class="sound-button">ログイン</button>
         </form>
 
         <p>
@@ -52,11 +52,25 @@
         {% endif %}
         
     </div>
+    <audio id="buttonSound" src="../static/audio/click-sound.mp3"></audio>
 
     <!-- スパイ画像アニメーション -->
     <div class="spy-animation"></div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttonSound = document.getElementById('buttonSound');
+            buttonSound.volume = 0.5;
+
+            const buttons = document.querySelectorAll('.sound-button');
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    buttonSound.currentTime = 0;
+                    buttonSound.play().catch(err => console.error('クリック音再生エラー:', err));
+                });
+            });
+        });
+
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById('password');
             const toggleButton = document.querySelector('.toggle-password');

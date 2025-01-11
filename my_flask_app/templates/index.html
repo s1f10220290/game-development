@@ -32,11 +32,27 @@
     <body>
         <div class="container">
             <h2>Coding Spy Mission</h2>
-            <a href="login"><button>▶ ログイン</button></a>
-            <a href="register"><button>▶ 初めての方はこちら</button></a>
+            <a href="login"><button class="sound-button">▶ ログイン</button></a>
+            <a href="register"><button class="sound-button">▶ 初めての方はこちら</button></a>
         </div>
-
         <!-- スパイアニメーションの追加 -->
         <div class="spy-animation"></div>
+
+        <audio id="buttonSound" src="../static/audio/click-sound.mp3"></audio>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const buttonSound = document.getElementById('buttonSound');
+                buttonSound.volume = 0.5;
+                const buttons = document.querySelectorAll('.sound-button');
+
+                buttons.forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        buttonSound.currentTime = 0;
+                        buttonSound.play().catch(err => console.error('クリック音再生エラー:', err));
+                    });
+                });
+            });
+        </script>
     </body>
 </html>
