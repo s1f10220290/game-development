@@ -13,10 +13,19 @@
 }
 
 body {
-    background-image: url("../illustration/home.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    font-family: "PixelMplus12-Regular", sans-serif;
+    background-image: url('../illustration/home.png');
+    background-size: contain; 
+    background-repeat: repeat-x; 
+    background-position: 0 300%;
+    font-family: 'PixelMplus12-Regular', Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1s ease-in, slideBackground 20s linear infinite;
 }
 
 #spy {
@@ -70,4 +79,22 @@ button:active {
     transform: scale(0.95);
 }
 
+#animation-container {
+    position: relative;
+    width: 80vw; /* ビューポート幅の 80% */
+    height: 50vh; /* ビューポート高さの 50% */
+    margin: auto; /* 中央に配置 */
+    overflow: hidden; /* 要素がコンテナ外に出ないようにする */
+    border: 2px solid rgba(255, 255, 255, 0.5); /* 視覚確認用 */
+}
+
+/* 背景をスライドさせるアニメーション */
+@keyframes slideBackground {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -800% 0; /* 左方向にスライド */
+    }
+}
 
