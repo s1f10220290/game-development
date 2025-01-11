@@ -13,9 +13,9 @@
 }
 
 body {
+    background-image: url("../illustration/home.png");
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url("../illustration/home.png");
     font-family: "PixelMplus12-Regular", sans-serif;
 }
 
@@ -28,28 +28,28 @@ body {
 }
 
 #prologue-container {
+    
     position: absolute;
-    bottom: 50px;
-    left: 20px;
-    transform: none;
-    text-align: left; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
     background-color: rgba(0, 0, 0, 0.8);
-    padding: 15px; 
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     color: white;
-    font-size: 1.2em;
-    line-height: 1.5em;
-    width: 70%;
-    max-width: 600px; 
+    font-size: 1.5em;
+    line-height: 1.8em;
+    width: 90%;
+    max-width: 800px;
     outline: 2px solid #d3d3d3;
     outline-offset: -5px;
 }
 
-
 button {
     font-family: 'PixelMplus12-Regular', sans-serif;
-    padding: 5px 10px;
+    padding: 10px 20px;
     font-size: 1.8em;
     background-color: #252825;
     color: white;
