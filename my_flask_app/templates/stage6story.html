@@ -5,6 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../static/styles/stage6story.css">
     <title>epilogue</title>
+    <style>
+        /* スパイのジャンプアニメーション用スタイル */
+        .spy {
+            position: fixed; /* 固定位置に配置 */
+            bottom: 30px; /* 下からの位置を設定 */
+            left: 660px; /* 左からの位置を設定 */
+            width: 230px; /* スパイ画像の幅 */
+            height: 230px; /* スパイ画像の高さ */
+            background-image: url('../static/illustration/spy.png'); /* スパイ画像を指定 */
+            background-size: cover; /* 画像を要素にフィットさせる */
+            animation: spyJump 1s infinite; /* ジャンプアニメーションを繰り返す */
+        }
+
+        /* ジャンプのキーフレームアニメーション */
+        @keyframes spyJump {
+            0%, 100% {
+                transform: translateY(0); /* 元の位置 */
+            }
+            50% {
+                transform: translateY(-80px); /* 上にジャンプ */
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -12,44 +35,45 @@
         <p id="prologue-text"></p>
     </div>
 
+    <!-- スパイアニメーション用の要素 -->
+    <div class="spy"></div> <!-- スパイ画像を表示するための要素 -->
+
     <script>
+        // プロローグのテキストを配列として定義
         const prologueText = [
-            "放送室に潜入！",
-            "敵が重要なメッセージを暗号化して放送している。",
-            "ミッションを開始しよう！",
+            "放送室に潜入！", // 最初の行
+            "敵が重要なメッセージを暗号化して放送している。", // 次の行
+            "ミッションを開始しよう！", // 最後の行
         ];
         
+        // テキスト表示用の要素を取得
         const prologueElement = document.getElementById('prologue-text');
-        const animationContainer = document.getElementById('animation-container');
-        const typingSpeed = 40;
+        const typingSpeed = 40; // タイピングの速度をミリ秒で指定
 
-        let textIndex = 0;
-        let charIndex = 0;
-        
+        let textIndex = 0; // 現在の行番号
+        let charIndex = 0; // 現在の文字番号
 
         // 文字を1文字ずつ表示する関数
         function typePrologue() {
             if (charIndex < prologueText[textIndex].length) {
+                // 現在の文字を追加表示
                 prologueElement.innerHTML += prologueText[textIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(typePrologue, typingSpeed);
+                charIndex++; // 次の文字に進む
+                setTimeout(typePrologue, typingSpeed); // 次の文字を遅延表示
             } else if (textIndex < prologueText.length - 1) {
-                // 次の行に進む
-                charIndex = 0;
-                textIndex++;
-                prologueElement.innerHTML += "<br>"; // 改行
-                setTimeout(typePrologue, typingSpeed);
+                // 次の行に進む場合
+                charIndex = 0; // 文字番号をリセット
+                textIndex++; // 行番号を進める
+                prologueElement.innerHTML += "<br>"; // 改行を追加
+                setTimeout(typePrologue, typingSpeed); // 次の行を表示
             } else {
-                console.log("エピローグが終了しました。")
+                // 最後の行が終わった後の処理
+                console.log("エピローグが終了しました。");
             }
         }
 
         // ページ読み込み時にプロローグ開始
         window.onload = typePrologue;
-
-
-
     </script>
-
 </body>
 </html>
