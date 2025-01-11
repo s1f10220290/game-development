@@ -8,10 +8,10 @@
         /* スパイ画像用のスタイル */
         .spy-animation {
             position: fixed;
-            bottom: 10px;
+            bottom: 35px;
             left: 10px;
-            width: 300px; /* 幅 */
-            height: 300px; /* 高さ */
+            width: 230px; /* 幅 */
+            height: 230px; /* 高さ */
             background-size: cover; /* 背景画像を全体にフィット */
             animation: spyWalk 1s steps(2) infinite; /* ステップアニメーション */
         }
@@ -19,13 +19,13 @@
         /* スパイ画像アニメーション */
         @keyframes spyWalk {
             0% {
-                background-image: url('../static/illustration/spy_w1.jpg');
+                background-image: url('../static/illustration/spy_w1.png');
             }
             50% {
-                background-image: url('../static/illustration/spy_w2.jpg');
+                background-image: url('../static/illustration/spy_w2.png');
             }
             100% {
-                background-image: url('../static/illustration/spy_w1.jpg');
+                background-image: url('../static/illustration/spy_w1.png');
             }
         }
     </style>
