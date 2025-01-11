@@ -7,6 +7,7 @@
 </head>
 
 <body>
+    <audio id="bgm" src="{{ url_for('static', filename='audio/stage-select.mp3') }}" loop autoplay></audio>
     <audio id="buttonSound" src="../static/audio/click-sound.mp3"></audio>
     
     <a href="/stage1story"><button class="stage-button">Stage1</button></a>
@@ -19,6 +20,8 @@
         // 音声再生処理
         const buttonSound = document.getElementById('buttonSound');
         const buttons = document.querySelectorAll('.stage-button');
+        const bgm = document.getElementById('bgm');
+        bgm.volume = 0.03; // 3%の音量
 
         buttons.forEach(button => {
             button.addEventListener('click', () => {
