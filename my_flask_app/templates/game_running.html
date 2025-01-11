@@ -37,12 +37,40 @@
         let textIndex = 0;
         let charIndex = 0;
         
+        // 効果音の準備
+        const typingSound = new Audio("{{ url_for('static', filename='audio/story.mp3') }}");
+        typingSound.volume = 0.5;
+
+        const clickSound = new Audio("{{ url_for('static', filename='audio/click-sound.mp3') }}");
+        clickSound.volume = 0.5;
+
+        function playTypingSound() {
+            if(typingSound.paused) {
+                typingSound.currentTime = 0;
+                typingSound.play();
+            }
+        }
+
+        function stopTypingSound() {
+            if(!typingSound.paused) {
+                typingSound.pause();
+                typingSound.currentTime = 0;
+            }
+        }
+        
+        function playClickSound() {
+            clickSound.currentTime = 0;
+            clickSound.play();
+        }
 
         // 文字を1文字ずつ表示する関数
         function typePrologue() {
             if (charIndex < prologueText[textIndex].length) {
                 prologueElement.innerHTML += prologueText[textIndex].charAt(charIndex);
                 charIndex++;
+
+                playTypingSound();
+
                 setTimeout(typePrologue, typingSpeed);
             } else if (textIndex < prologueText.length - 1) {
                 // 次の行に進む
@@ -58,7 +86,13 @@
 
         setTimeout(() => {
             const buttonContainer = document.createElement('div');
-            buttonContainer.innerHTML = '<a href="/selection"><button>ステージを選ぶ</button></a>';
+            const button = document.createElement('button');
+            button.textContent = "ステージを選ぶ";
+            button.onclick = () => {
+                playClickSound();
+                window.location.href = "/selection";
+            };
+            buttonContainer.appendChild(button);
             const prologueContainer = document.getElementById('prologue-container');
             prologueContainer.appendChild(buttonContainer);
         }, 7500);
