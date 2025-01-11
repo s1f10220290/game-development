@@ -1,0 +1,177 @@
+@font-face {
+    font-family: 'PixelMplus12-Regular'; 
+    src: url('../fonts/PixelMplus12-Regular.ttf') format('truetype'); 
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'PixelMplus12-Bold'; 
+    src: url('../fonts/PixelMplus12-Bold.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    background-image: url('../illustration/start.jpg');
+    background-size: contain; 
+    background-repeat: repeat-x; 
+    background-position: 0 300%;
+    font-family: 'PixelMplus12-Regular', Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 1s ease-in, slideBackground 20s linear infinite;
+}
+
+/* 背景をスライドさせるアニメーション */
+@keyframes slideBackground {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: -800% 0; /* 左方向にスライド */
+    }
+}
+
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+label {
+    color: white;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+input {
+    width: 300px;
+    height: 40px;
+    font-size: 1.2em;
+    padding: 5px;
+    margin-bottom: 20px;
+    border: 2px solid white;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+h2 {
+    font-size: 5em;
+    margin-bottom: 20px;
+    color: white;
+    text-shadow: 
+        0 0 0.3px white, 
+        0 0 5px white,
+        0 0 15px white,
+        0 0 10px white,
+        0 0 20px #00e6ff,
+        0 0 40px #00e6ff;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+
+button {
+    font-family: 'PixelMplus12-Regular', sans-serif;
+    padding: 10px 20px;
+    font-size: 1.8em;
+    background-color: #252825;
+    color: white;
+    border: 2px solid white;
+    box-shadow: 0 0 0 4px black;
+    border-radius: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    width: 250px;
+    margin-top: 20px;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+
+.username {
+    font-size: 2em; 
+    margin: 10px 0; 
+}
+
+.password-input-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px; /* 入力欄と次の要素との間隔 */
+}
+
+.password-input-container input {
+    width: 100%;
+    margin-bottom: 4px; /* ボタンとの間隔 */
+}
+
+.toggle-password {
+    cursor: pointer;
+    background: #d3d3d3;
+    color: black;
+    font-size: 12px;
+    padding: 3px 4px;
+    border: none;
+    border-radius: 2px;
+    outline: none;
+    box-shadow: none;
+    width: 110px;
+    align-self: flex-end;
+}
+
+#stage-button {
+    position: absolute; /* ボタンを絶対位置に */
+    top: 50%; /* 画面中央に配置 */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px; /* フォントサイズを大きく */
+    padding: 20px 40px; /* ボタンの内側余白 */
+    background-color: #007bff; /* ボタンの背景色 */
+    color: white; /* テキストカラー */
+    border: none; /* ボーダーを削除 */
+    border-radius: 10px; /* 角丸 */
+    cursor: pointer; /* マウスホバー時にポインター表示 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* シャドウ効果 */
+    display: none; /* 初期は非表示 */
+    z-index: 10; /* 他の要素の上に表示 */
+}
+
+#animation-container {
+    position: relative; /* アニメーションの親要素 */
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* アニメーションの範囲外を隠す */
+    z-index: 1; /* ボタンより下に配置 */
+}
+
+#spy {
+    position: absolute; /* スパイの絶対位置 */
+    z-index: 5; /* ボタンより下に表示 */
+}
