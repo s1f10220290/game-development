@@ -8,6 +8,8 @@
 </head>
 <body>
 
+    <audio id="bgm" src="{{ url_for('static', filename='audio/play-bgm.mp3') }}" loop autoplay></audio>
+    
     <div id="animation-container">
         <img id="spy" src="{{ url_for('static', filename='illustration/spy.png') }}" alt="スパイ">
     </div>
@@ -33,6 +35,8 @@
         const prologueElement = document.getElementById('prologue-text');
         const animationContainer = document.getElementById('animation-container');
         const typingSpeed = 40;
+        const bgm = document.getElementById('bgm');
+        bgm.volume = 0.03; // 30%の音量
 
         let textIndex = 0;
         let charIndex = 0;
