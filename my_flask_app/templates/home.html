@@ -31,6 +31,8 @@
     </style>
 </head>
 <body>
+    <audio id="bgm" src="{{ url_for('static', filename='audio/play-bgm.mp3') }}" loop autoplay></audio>
+
     <div class="container">
         <form action="{{ url_for('start_game_route') }}" method="post">
             <h2>ようこそ、{{ username }}さん！</h2>
@@ -45,6 +47,9 @@
     <audio id="buttonSound" src="../static/audio/click-sound.mp3"></audio>
 
     <script>
+        const bgm = document.getElementById('bgm');
+        bgm.volume = 0.03;
+
         document.addEventListener('DOMContentLoaded', () => {
             const buttonSound = document.getElementById('buttonSound');
             buttonSound.volume = 0.5;

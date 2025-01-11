@@ -18,6 +18,10 @@
             </div>
         </div>
 
+        <audio id="buttonSound" src="../static/audio/click-sound.mp3"></audio>
+        <audio id="clearSound" src="../static/audio/clear.mp3"></audio>
+        <audio id="failSound" src="../static/audio/fail.mp3"></audio>
+
         <script>
             window.onload = function() {
                 const correctAnswers = parseInt(sessionStorage.getItem('correct_answers')) || 0;
@@ -30,22 +34,42 @@
                 const nextStageButton = document.getElementById('next-stage-button');
                 const retryButton = document.getElementById('retry-button');
 
+                const clearSound = document.getElementById('clearSound');
+                const failSound = document.getElementById('failSound');
+
+                clearSound.volume = 0.2;
+                failSound.volume = 0.2;
+
                 if (correctAnswers >= 8) {
-                    resultMessage.textContent = "クリア！";
+                    resultMessage.textContent = "最後の暗号を解き明かすことができた！";
                     resultMessage.style.color = "orange";
 
                     buttonContainer.classList.add('horizontal-buttons');
                     nextStageButton.style.display = "inline-block";
+
+                    clearSound.play().catch(err => console.error('クリア音再生エラー:', err));
                 } else {
                     resultMessage.textContent = "ミッション失敗！正体がバレてしまった！";
                     resultMessage.style.color = "red";
 
                     retryButton.style.display = "inline-block";
+
+                    failSound.play().catch(err => console.error("失敗音再生エラー:", err));
                 }
 
                 // セッションストレージをリセット
                 sessionStorage.removeItem('current_question');
                 sessionStorage.removeItem('correct_answers');
+
+                const buttonSound = document.getElementById('buttonSound');
+                const buttons = document.querySelector('button');
+
+                button.forEach(button => {
+                    button.addEventListener('click', () => {
+                        buttonSound.currentTime = 0;
+                        buttonSound.play().catch(err => console.error('音声再生エラー:', err));
+                    });
+                });
             }
         </script>
     </body>

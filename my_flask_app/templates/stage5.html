@@ -9,6 +9,7 @@
 </head>
 <body>
     <h1>Stage5</h1>
+    <audio id="buttonSound" src="../static/audio/click-sound.mp3"></audio>
     <a href="/selection"><button id="home-button">ホームにもどる</button></a>
     <div id="question-container">
         <p>問題：<span id="current-question">{{ current_question }}</span> / 10</p>
@@ -34,12 +35,20 @@
         let correctAnswers = {{ correct_answers }};
         let selectedAnswer = null;
 
+        const buttonSound = document.getElementById("buttonSound");
+
+        function playButtonSound() {
+            buttonSound.currentTime = 0;
+            buttonSound.play().catch(err => console.error("音声再生エラー:", err));
+        }
+
         function updateQuestionDisplay() {
             document.getElementById('current-question').textContent = currentQuestion;
         }
 
         // 選択肢をクリックしたときの処理
         function selectOption(element) {
+            playButtonSound();
             // 他の選択肢の選択状態をリセット
             const options = document.querySelectorAll('.option-box');
             options.forEach(option => {
@@ -83,7 +92,22 @@
             sessionStorage.setItem('correct_answers', correctAnswers);
         }
 
+        document.getElementById("next-btn").addEventListener('click', () => {
+            const buttonSound = document.getElementById('buttonSound');
+            buttonSound.currentTime = 0;
+            buttonSound.play();
+
+            buttonSound.addEventListener('ended', () => {
+                nextQuestion();
+            });
+
+            buttonSound.play().catch(() => {
+                setTimeout(nextQuestion, 500);
+            });
+        });
+
         function nextQuestion() {
+            playButtonSound();
             updateProgress();
 
             if (currentQuestion > 10) {
@@ -110,6 +134,11 @@
             updateQuestionDisplay();
 
             optionsData = {{ options | tojson }};
+
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', playButtonSound);
+            });
 
         };
     </script>

@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="../static/styles/style.css">
 </head>
 <body>
+    <audio id="bgm" src="{{ url_for('static', filename='audio/play-bgm.mp3') }}" loop autoplay></audio>
     
     <div class="container">
         <h2>ユーザー登録</h2>
@@ -25,6 +26,9 @@
     </div>
 
     <script>
+        const bgm = document.getElementById('bgm');
+        bgm.volume = 0.03; // 3%の音量
+        
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById('password');
             const toggleButton = document.querySelector('.toggle-password');

@@ -31,6 +31,7 @@
 </head>
 
 <body>
+    <audio id="bgm" src="{{ url_for('static', filename='audio/ending.mp3') }}" loop autoplay></audio>
     <div id="prologue-container">
         <p id="prologue-text"></p>
     </div>
@@ -39,33 +40,53 @@
     <div class="spy"></div> <!-- スパイ画像を表示するための要素 -->
 
     <script>
-        // プロローグのテキストを配列として定義
         const prologueText = [
-            "放送室に潜入！", // 最初の行
-            "敵が重要なメッセージを暗号化して放送している。", // 次の行
-            "ミッションを開始しよう！", // 最後の行
+            "校長室でのミッションを終え、主人公は悪の組織の計画をそしした。",
+            "学校はふたたびへいおんをとりもどし、",
+            "クラスメートは事件に気づくこともなく、",
+            "いつもの日常がもどってきた。",
         ];
         
-        // テキスト表示用の要素を取得
         const prologueElement = document.getElementById('prologue-text');
-        const typingSpeed = 40; // タイピングの速度をミリ秒で指定
+        const animationContainer = document.getElementById('animation-container');
+        const typingSpeed = 40;
 
-        let textIndex = 0; // 現在の行番号
-        let charIndex = 0; // 現在の文字番号
+        let textIndex = 0;
+        let charIndex = 0;
+        
+        // 効果音の準備
+        const typingSound = new Audio("{{ url_for('static', filename='audio/story.mp3') }}");
+        typingSound.volume = 0.5;
+
+        function playTypingSound() {
+            if(typingSound.paused) {
+                typingSound.currentTime = 0;
+                typingSound.play();
+            }
+        }
+
+        function stopTypingSound() {
+            if(!typingSound.paused) {
+                typingSound.pause();
+                typingSound.currentTime = 0;
+            }
+        }
 
         // 文字を1文字ずつ表示する関数
         function typePrologue() {
             if (charIndex < prologueText[textIndex].length) {
-                // 現在の文字を追加表示
                 prologueElement.innerHTML += prologueText[textIndex].charAt(charIndex);
-                charIndex++; // 次の文字に進む
-                setTimeout(typePrologue, typingSpeed); // 次の文字を遅延表示
+                charIndex++;
+                
+                playTypingSound();
+
+                setTimeout(typePrologue, typingSpeed);
             } else if (textIndex < prologueText.length - 1) {
-                // 次の行に進む場合
-                charIndex = 0; // 文字番号をリセット
-                textIndex++; // 行番号を進める
-                prologueElement.innerHTML += "<br>"; // 改行を追加
-                setTimeout(typePrologue, typingSpeed); // 次の行を表示
+                // 次の行に進む
+                charIndex = 0;
+                textIndex++;
+                prologueElement.innerHTML += "<br>"; // 改行
+                setTimeout(typePrologue, typingSpeed);
             } else {
                 // 最後の行が終わった後の処理
                 console.log("エピローグが終了しました。");
