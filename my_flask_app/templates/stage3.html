@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../static/styles/stage3.css">
-    <title>Stage2</title>
+    <title>Stage3</title>
     <!--理科室-->
 </head>
 <body>
     <h1>Stage3</h1>
+    <audio id="buttonSound" src="../static/audio/click-sound.mp3"></audio>
+    <audio id="bgm" src="../static/audio/stage1.mp3" loop></audio>
+
     <a href="/selection"><button id="home-button">ホームにもどる</button></a>
     <div id="question-container">
         <p>問題：<span id="current-question">{{ current_question }}</span> / 10</p>
@@ -47,6 +50,8 @@
 
         // 選択肢をクリックしたときの処理
         function selectOption(element) {
+            playButtonSound(); // 音を再生
+
             // 他の選択肢の選択状態をリセット
             const options = document.querySelectorAll('.option-box');
             options.forEach(option => {
@@ -90,8 +95,27 @@
             sessionStorage.setItem('correct_answers', correctAnswers);
         }
 
+        document.getElementById('next-btn').addEventListener('click', () => {
+            const buttonSound = document.getElementById('buttonSound');
+            buttonSound.currentTime = 0; // 再生位置をリセット
+            buttonSound.play();
+
+            // 音声再生が終わってから次のページに遷移
+            buttonSound.addEventListener('ended', () => {
+                nextQuestion();
+            });
+
+            // 再生が失敗した場合でもタイムアウトで遷移
+            buttonSound.play().catch(() => {
+                setTimeout(nextQuestion, 500); // 音声が再生されない場合、0.5秒遅延して遷移
+            });
+        });
+
         function nextQuestion() {
+            playButtonSound();
             updateProgress();
+
+            sessionStorage.setItem('bgmTime', bgm.currentTime);
 
             if (currentQuestion > 10) {
                 sessionStorage.setItem('current_question', 1);
@@ -118,7 +142,22 @@
 
             optionsData = {{ options | tojson }};
 
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', playButtonSound);
+            });
         };
+
+        const bgm = document.getElementById('bgm');
+        const savedBgmTime = sessionStorage.getItem('bgmTime');
+
+        bgm.currentTime = savedBgmTime ? parseFloat(savedBgmTime) : 0;
+        bgm.volume = 0.03;
+        bgm.play().catch(err => console.error('BGM再生エラー:', err));
+
+        window.addEventListener('beforeunload', () => {
+            sessionStorage.setItem('bgmTime', bgm.currentTime);
+        });
     </script>
 </body>
 </html>

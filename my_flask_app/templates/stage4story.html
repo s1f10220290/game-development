@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <audio id="bgm" src="../static/audio/stage1.mp3" loop></audio>
     <div id="prologue-container">
         <p id="prologue-text"></p>
     </div>
@@ -25,6 +26,34 @@
 
         let textIndex = 0;
         let charIndex = 0;
+
+        // 効果音の準備
+        const typingSound = new Audio("{{ url_for('static', filename='audio/story.mp3') }}");
+        typingSound.volume = 0.5;
+        const bgm = document.getElementById('bgm');
+        const savedTime = localStorage.getItem('bgmTime') || 0;
+        bgm.currentTime = parseFloat(savedTime);
+        bgm.volume = 0.03;
+        bgm.play();
+
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem('bgmTime', bgm.currentTime);
+        });
+
+        function playTypingSound() {
+            if(typingSound.paused) {
+                typingSound.currentTime = 0;
+                typingSound.play();
+            }
+        }
+
+        function stopTypingSound() {
+            if(!typingSound.paused) {
+                typingSound.pause();
+                typingSound.currentTime = 0;
+            }
+        }
+        
         
 
         // 文字を1文字ずつ表示する関数
@@ -32,14 +61,23 @@
             if (charIndex < prologueText[textIndex].length) {
                 prologueElement.innerHTML += prologueText[textIndex].charAt(charIndex);
                 charIndex++;
+
+                playTypingSound();
+
                 setTimeout(typePrologue, typingSpeed);
             } else if (textIndex < prologueText.length - 1) {
+
+                stopTypingSound();
+
                 // 次の行に進む
                 charIndex = 0;
                 textIndex++;
                 prologueElement.innerHTML += "<br>"; // 改行
                 setTimeout(typePrologue, typingSpeed);
             } else {
+
+                stopTypingSound();
+
                 // 最後の行が終了した後、自動遷移を開始
                 setTimeout(() => {
                     window.location.href = "/stage4"; // 遷移先のURL

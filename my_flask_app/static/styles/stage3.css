@@ -13,6 +13,7 @@
 }
 
 body {
+    background-image: url("../illustration/stage3.png");
     font-family: 'PixelMplus12-Regular', sans-serif;
     background-repeat: no-repeat;
     background-size: cover;

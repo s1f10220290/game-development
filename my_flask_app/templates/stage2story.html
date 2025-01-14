@@ -8,6 +8,7 @@
 </head>
 
 <body>
+    <audio id="bgm" src="../static/audio/stage1.mp3" loop></audio>
 <div id="animation-container" class="stage2">
     <img id="spy_kounai" src="{{ url_for('static', filename='illustration/spy_kounai_toumei.png') }}" alt="スパイ図書室">
 </div>
@@ -34,6 +35,11 @@
         // 効果音の準備
         const typingSound = new Audio("{{ url_for('static', filename='audio/story.mp3') }}");
         typingSound.volume = 0.5;
+        const bgm = document.getElementById('bgm');
+        const savedTime = localStorage.getItem('bgmTime') || 0;
+        bgm.currentTime = parseFloat(savedTime);
+        bgm.volume = 0.03;
+        bgm.play();
 
         function playTypingSound() {
             if(typingSound.paused) {

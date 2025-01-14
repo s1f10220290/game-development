@@ -48,7 +48,21 @@
 
     <script>
         const bgm = document.getElementById('bgm');
-        bgm.volume = 0.03;
+
+        // BGM 再生位置の復元
+        const savedBgmTime = sessionStorage.getItem('bgmTime');
+        if (savedBgmTime) {
+            bgm.currentTime = parseFloat(savedBgmTime);
+        }
+
+        // BGM 設定
+        bgm.volume = 0.03; // 音量設定
+        bgm.play().catch((err) => console.error("BGM再生エラー:", err));
+
+        // BGM 再生位置の保存
+        window.addEventListener('beforeunload', () => {
+            sessionStorage.setItem('bgmTime', bgm.currentTime);
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             const buttonSound = document.getElementById('buttonSound');

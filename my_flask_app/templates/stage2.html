@@ -9,6 +9,7 @@
 <body>
     <h1>Stage2</h1>
     <audio id="buttonSound" src="../static/audio/click-sound.mp3"></audio>
+    <audio id="bgm" src="../static/audio/stage1.mp3" loop></audio>
 
     <a href="/selection"><button id="home-button">ホームにもどる</button></a>
     <div id="question-container">
@@ -111,6 +112,8 @@
             playButtonSound();
             updateProgress();
 
+            sessionStorage.setItem('bgmTime', bgm.currentTime);
+
             if (currentQuestion > 10) {
                 sessionStorage.setItem('current_question', 1);
                 sessionStorage.setItem('correct_answers', correctAnswers);
@@ -142,6 +145,17 @@
             });
 
         };
+
+        const bgm  = document.getElementById('bgm');
+        const savedBgmTime = sessionStorage.getItem('bgmTime');
+
+        bgm.currentTime = savedBgmTime ? parseFloat(savedBgmTime) : 0;
+        bgm.volume = 0.03;
+        bgm.play().catch(err => console.error('BGM再生エラー:', err));
+        
+        window.addEventListener('beforeunload', () => {
+            sessionStorage.setItem('bgmTime', bgm.currentTime);
+        }); 
     </script>
 </body>
 </html>
