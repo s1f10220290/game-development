@@ -171,19 +171,19 @@ def start_stage2():
 
 @app.route('/stage3')
 def start_stage3():
-    return start_stage(3, (41, 100))
+    return start_stage(3, (101, 139))
 
 @app.route('/stage4')
 def start_stage4():
-    return start_stage(4, (41, 100))
+    return start_stage(4, (140, 167))
 
 @app.route('/stage5')
 def start_stage5():
-    return start_stage(5, (41, 100))
+    return start_stage(5, (140, 167))
 
 @app.route('/stage6')
 def start_stage6():
-    return start_stage(6, (41, 100))
+    return start_stage(6, (140, 167))
 
 
 
