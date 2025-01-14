@@ -98,3 +98,35 @@ button:active {
     }
 }
 
+/* ホームにもどるボタンを右上に配置 */
+#home-button {
+    position: absolute; /* 絶対位置を設定 */
+    top: 10px; /* 上から10px */
+    right: 10px; /* 右から10px */
+    font-family: 'PixelMplus12-Regular', sans-serif;
+    font-size: 15px; /* フォントサイズを小さく */
+    padding: 10px 20px; /* 内側の余白を小さく */
+    background-color: #252825;
+    color: white;
+    border: 1px solid white;
+    box-shadow: 0 0 0 2px black;
+    border-radius: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+#register-button {
+    position: absolute;
+    top: 60px; /* ホームボタンから下に配置 */
+    right: 10px; /* 右から10px */
+    font-family: 'PixelMplus12-Regular', sans-serif;
+    font-size: 15px;
+    padding: 10px 20px;
+    background-color: #252825;
+    color: white;
+    border: 1px solid white;
+    box-shadow: 0 0 0 2px black;
+    border-radius: 0;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
